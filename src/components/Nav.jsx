@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const LINKS = [
   ['#program', 'Program'],
@@ -10,13 +10,28 @@ const LINKS = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const cls = ['nav', open && 'open', scrolled && 'scrolled']
+    .filter(Boolean)
+    .join(' ')
 
   return (
-    <header className={open ? 'nav open' : 'nav'}>
+    <header className={cls}>
       <a className="skip" href="#main">
         Skip to content
       </a>
       <div className="nav-inner">
+        <a className="logo" href="#top">
+          NOBI<i>.</i>
+        </a>
         <nav className="nav-links" aria-label="Primary">
           {LINKS.map(([href, label]) => (
             <a key={href} href={href} onClick={() => setOpen(false)}>
@@ -24,9 +39,6 @@ export default function Nav() {
             </a>
           ))}
         </nav>
-        <a className="logo" href="#top">
-          NOBI
-        </a>
         <div className="nav-cta">
           <a className="btn btn-ghost ghost-hide" href="#book">
             Book

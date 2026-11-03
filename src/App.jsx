@@ -1,9 +1,15 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Calc from './components/Calc'
 import Booking from './components/Booking'
-import { FEEDBACK, PACKAGES, PROGRAMS, RESULTS, STATS } from './data'
+import { FEEDBACK, IMAGES, PACKAGES, PROGRAMS, RESULTS, STATS } from './data'
 
 const WORDS = [
   'DISCIPLINE',
@@ -13,6 +19,8 @@ const WORDS = [
   'NO EXCUSES',
   'EARN IT',
 ]
+
+const EASE = [0.2, 0.8, 0.2, 1]
 
 export default function App() {
   return (
@@ -30,6 +38,7 @@ export default function App() {
         <Feedback />
         <Calc />
         <Booking />
+        <Closer />
         <Contact />
       </main>
       <Footer />
@@ -37,31 +46,89 @@ export default function App() {
   )
 }
 
+/* One orchestrated moment: the photo settles, then each headline line
+   rises out of its mask, then the copy and buttons arrive. */
 function Hero() {
+  const ref = useRef(null)
+  const reduce = useReducedMotion()
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start start', 'end start'],
+  })
+  const imgY = useTransform(scrollYProgress, [0, 1], ['0%', reduce ? '0%' : '16%'])
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', reduce ? '0%' : '-14%'])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.75], [1, reduce ? 1 : 0])
+
+  const stage = {
+    hidden: {},
+    show: { transition: { delayChildren: 0.45, staggerChildren: 0.14 } },
+  }
+  const line = {
+    hidden: { y: '110%' },
+    show: { y: '0%', transition: { duration: 0.95, ease: EASE } },
+  }
+  const fade = {
+    hidden: { opacity: 0, y: 14 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+  }
+
   return (
-    <section className="hero" id="top">
-      <div className="hero-media" aria-hidden="true" />
-      <div>
-        <p className="hero-kicker">Season 01 — Online coaching</p>
+    <section className="hero" id="top" ref={ref}>
+      <motion.div
+        className="hero-media"
+        aria-hidden="true"
+        style={{ y: imgY, backgroundImage: `url(${IMAGES.hero})` }}
+        initial={reduce ? false : { scale: 1.18, filter: 'grayscale(1) brightness(0.45)' }}
+        animate={{ scale: 1, filter: 'grayscale(0.8) brightness(0.8)' }}
+        transition={{ duration: 1.9, ease: EASE }}
+      />
+      <div className="hero-shade" aria-hidden="true" />
+      <motion.div
+        className="hero-inner"
+        style={{ y: textY, opacity: textOpacity }}
+        variants={stage}
+        initial={reduce ? 'show' : 'hidden'}
+        animate="show"
+      >
+        <motion.p className="hero-kicker" variants={fade}>
+          Online coaching. Form first, then load.
+        </motion.p>
         <h1>
-          Start your
-          <br />
-          transformation<span>.</span>
+          <span className="line">
+            <motion.span variants={line}>Start your</motion.span>
+          </span>
+          <span className="line">
+            <motion.span variants={line}>
+              transformation<i>.</i>
+            </motion.span>
+          </span>
         </h1>
-        <p className="hero-copy">
+        <motion.p className="hero-copy" variants={fade}>
           Programming, nutrition, and eyes on your technique — without the gym
           bro theatre. Show up. We handle the map.
-        </p>
-        <div className="hero-actions">
+        </motion.p>
+        <motion.div className="hero-actions" variants={fade}>
           <a className="btn btn-primary" href="#packages">
             Start your transformation
           </a>
           <a className="btn btn-ghost" href="#book">
             Book a call
           </a>
-        </div>
-      </div>
-      <p className="hero-rail">NOBI / COACH / 240+</p>
+        </motion.div>
+      </motion.div>
+      <motion.dl
+        className="hero-strip"
+        initial={reduce ? false : { opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.4, ease: EASE }}
+      >
+        {STATS.slice(0, 3).map((s) => (
+          <div key={s.label}>
+            <dt>{s.label}</dt>
+            <dd>{s.value}</dd>
+          </div>
+        ))}
+      </motion.dl>
     </section>
   )
 }
@@ -94,14 +161,41 @@ function Stats() {
   )
 }
 
+/* Full-bleed photo with a slow parallax drift. Scroll-driven, so it only
+   moves when the person does. */
+function PhotoBand({ image, position = 'center', tall = false, children }) {
+  const ref = useRef(null)
+  const reduce = useReducedMotion()
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  })
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    reduce ? ['0%', '0%'] : ['-9%', '9%'],
+  )
+
+  return (
+    <section className={tall ? 'band tall' : 'band'} ref={ref}>
+      <motion.div
+        className="band-img"
+        aria-hidden="true"
+        style={{ y, backgroundImage: `url(${image})`, backgroundPosition: position }}
+      />
+      <div className="band-shade" aria-hidden="true" />
+      <div className="band-body">{children}</div>
+    </section>
+  )
+}
+
 function Story() {
   return (
     <section className="section" id="story">
       <div className="split">
         <div>
-          <p className="eyebrow">My story / 02</p>
           <h2>I did not get here by feeling ready.</h2>
-          <p className="lede" style={{ marginTop: '1.2rem' }}>
+          <p className="lede" style={{ marginTop: '1.4rem' }}>
             I started as the kid who trained loud and moved badly. Injuries
             taught me that load without technique is just ego with a barcode.
             Online coaching is how I scale the same standard: honest numbers,
@@ -109,19 +203,24 @@ function Story() {
           </p>
           <ul className="story-list">
             <li>
-              <b>01</b> Eight years on the floor before the first remote client.
+              <b>8</b> years on the floor before the first remote client.
             </li>
             <li>
-              <b>02</b> 240+ people coached through cut, rebuild, and first
-              muscle that actually showed.
+              <b>240+</b> people coached through cut, rebuild, and first muscle
+              that actually showed.
             </li>
             <li>
-              <b>03</b> Still filming cues at 11pm because the lift matters more
+              <b>11pm</b> and still filming cues, because the lift matters more
               than the aesthetic of coaching.
             </li>
           </ul>
         </div>
-        <div className="story-photo" role="img" aria-label="Coach training" />
+        <div
+          className="story-photo"
+          role="img"
+          aria-label="Coach training"
+          style={{ backgroundImage: `url(${IMAGES.story})` }}
+        />
       </div>
     </section>
   )
@@ -129,62 +228,76 @@ function Story() {
 
 function Technique() {
   return (
-    <section className="section" id="technique">
-      <div className="section-head">
-        <div>
-          <p className="eyebrow">Standard / 03</p>
+    <>
+      <PhotoBand image={IMAGES.technique} position="center 40%" tall>
+        <h2>
+          If it does not look clean,
+          <br />
+          it does not count.
+        </h2>
+      </PhotoBand>
+      <section className="section" id="technique">
+        <div className="section-head">
           <h2>Technique is the real intensity.</h2>
+          <p className="lede muted">
+            Anyone can add plates. Few people can own the path of the bar. That
+            is why every package includes form reviews — because the
+            transformation you want is built on joints that still work in year
+            five.
+          </p>
         </div>
-        <p className="lede muted">
-          Anyone can add plates. Few people can own the path of the bar. That is
-          why every package includes form reviews — because the transformation
-          you want is built on joints that still work in year five.
-        </p>
-      </div>
-      <div className="tech-grid">
-        <article className="tech-card lead">
-          <p className="eyebrow">The rule</p>
-          <h3 style={{ fontSize: '2.6rem' }}>
-            If it does not look clean, it does not count.
-          </h3>
-        </article>
-        <article className="tech-card">
-          <p className="eyebrow">Cue</p>
-          <h3>Brace, then move</h3>
-          <p className="muted" style={{ marginTop: '0.8rem' }}>
-            Ribs down. Floor through the midfoot. Then we talk about load.
-          </p>
-        </article>
-        <article className="tech-card">
-          <p className="eyebrow">Film</p>
-          <h3>Two angles, one truth</h3>
-          <p className="muted" style={{ marginTop: '0.8rem' }}>
-            Side and 45°. I mark the miss, you fix it next session. No mystery.
-          </p>
-        </article>
-      </div>
-    </section>
+        <div className="cues">
+          <article>
+            <h3>Brace, then move</h3>
+            <p className="muted">
+              Ribs down. Floor through the midfoot. Then we talk about load.
+            </p>
+          </article>
+          <article>
+            <h3>Two angles, one truth</h3>
+            <p className="muted">
+              Side and 45°. I mark the miss, you fix it next session. No
+              mystery.
+            </p>
+          </article>
+        </div>
+      </section>
+    </>
   )
 }
 
 function Programs() {
+  const [open, setOpen] = useState(0)
+
   return (
     <section className="section" id="program">
       <div className="section-head">
-        <div>
-          <p className="eyebrow">Program / 04</p>
-          <h2>Pick the block. We write the days.</h2>
-        </div>
+        <h2>Pick the block. We write the days.</h2>
       </div>
-      <div className="program-grid">
-        {PROGRAMS.map((p) => (
-          <article className="program-card" key={p.code}>
-            <code>{p.code} / {p.weeks}</code>
-            <h3>{p.title}</h3>
-            <p className="muted">{p.copy}</p>
-          </article>
-        ))}
-      </div>
+      <ul className="rows">
+        {PROGRAMS.map((p, i) => {
+          const isOpen = open === i
+          return (
+            <li className={isOpen ? 'row open' : 'row'} key={p.code}>
+              <button
+                type="button"
+                aria-expanded={isOpen}
+                aria-controls={`program-${p.code}`}
+                onClick={() => setOpen(isOpen ? -1 : i)}
+              >
+                <span className="row-title">{p.title}</span>
+                <span className="row-meta">{p.weeks}</span>
+                <span className="row-icon" aria-hidden="true" />
+              </button>
+              <div className="row-body" id={`program-${p.code}`}>
+                <div>
+                  <p>{p.copy}</p>
+                </div>
+              </div>
+            </li>
+          )
+        })}
+      </ul>
     </section>
   )
 }
@@ -193,10 +306,7 @@ function Packages() {
   return (
     <section className="section" id="packages">
       <div className="section-head">
-        <div>
-          <p className="eyebrow">Packages / 05</p>
-          <h2>Subscriptions that actually coach.</h2>
-        </div>
+        <h2>Subscriptions that actually coach.</h2>
         <p className="lede muted">
           Weekly billing. Pause anytime after week four. This is not a dump of
           PDFs — it is eyes on your training.
@@ -237,20 +347,22 @@ function Results() {
   return (
     <section className="section" id="results">
       <div className="section-head">
-        <div>
-          <p className="eyebrow">Results</p>
-          <h2>Transformations, not filters.</h2>
-        </div>
+        <h2>Transformations, not filters.</h2>
       </div>
       <div className="result-grid">
-        {RESULTS.map((r) => (
-          <article className="result-card" key={r.name}>
-            <p className="eyebrow">{r.span}</p>
-            <h3>{r.name}</h3>
-            <p className="change">{r.change}</p>
-            <p className="muted">{r.quote}</p>
-          </article>
-        ))}
+        {RESULTS.map((r) => {
+          const [main, sub] = r.change.split('·').map((s) => s.trim())
+          return (
+            <article className="result" key={r.name}>
+              <p className="result-main">{main}</p>
+              {sub ? <p className="result-sub">{sub}</p> : null}
+              <p className="result-quote">{r.quote}</p>
+              <p className="result-who">
+                {r.name}, {r.span}
+              </p>
+            </article>
+          )
+        })}
       </div>
     </section>
   )
@@ -260,22 +372,39 @@ function Feedback() {
   return (
     <section className="section" id="feedback">
       <div className="section-head">
-        <div>
-          <p className="eyebrow">Clients</p>
-          <h2>What they say when the camera is off.</h2>
-        </div>
+        <h2>What they say when the camera is off.</h2>
       </div>
-      <div className="feed-grid">
-        {FEEDBACK.map((f) => (
-          <article className="feed-card" key={f.name}>
-            <p>“{f.text}”</p>
-            <p className="eyebrow" style={{ margin: 0 }}>
-              {f.name} — {f.role}
-            </p>
-          </article>
+      <div className="feed">
+        {FEEDBACK.map((f, i) => (
+          <figure className={i === 0 ? 'feed-item lead' : 'feed-item'} key={f.name}>
+            <blockquote>“{f.text}”</blockquote>
+            <figcaption>
+              {f.name}, {f.role}
+            </figcaption>
+          </figure>
         ))}
       </div>
     </section>
+  )
+}
+
+function Closer() {
+  return (
+    <PhotoBand image={IMAGES.hero} position="center 18%">
+      <h2>
+        Show up.
+        <br />
+        We handle the map<span className="dot">.</span>
+      </h2>
+      <div className="hero-actions" style={{ marginTop: '2rem' }}>
+        <a className="btn btn-primary" href="#packages">
+          Choose a package
+        </a>
+        <a className="btn btn-ghost" href="#book">
+          Book a call
+        </a>
+      </div>
+    </PhotoBand>
   )
 }
 
@@ -298,7 +427,6 @@ function Contact() {
     <section className="section" id="contact">
       <div className="contact-grid">
         <div>
-          <p className="eyebrow">Contact / 08</p>
           <h2>Talk before you pay.</h2>
           <p className="lede" style={{ marginTop: '1rem' }}>
             Questions about injuries, time zones, or whether Spark is enough —
