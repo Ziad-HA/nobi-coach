@@ -125,3 +125,10 @@ export const STATS = [
 ]
 
 export const SLOTS = ['07:00', '08:30', '12:00', '17:00', '18:30', '20:00']
+
+// Swap these URLs (or point to files in /public) to change the photography.
+export const IMAGES = {
+  hero: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=75',
+  story: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=1400&q=75',
+  technique: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=2200&q=75',
+}
