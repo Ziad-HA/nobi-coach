@@ -194,42 +194,41 @@ function Story() {
     <section className="section" id="story">
       <div className="community">
         <div>
-          <p className="eyebrow">More than a coach</p>
+          <p className="eyebrow">Online community</p>
           <h2>
             A Stronger
             <br />
             Community
           </h2>
           <p className="lede" style={{ marginTop: '1.2rem' }}>
-            I started as the kid who trained loud and moved badly. Injuries
-            taught me that load without technique is just ego with a barcode.
-            Online coaching is how I scale the same standard: honest numbers,
-            ruthless form, and a plan you can keep on a messy week.
+            Training online does not mean training alone. You get a coach who
+            knows your numbers, your schedule and your goals — and a standard
+            you can follow from anywhere, at home or in any gym.
           </p>
           <ul className="story-list">
             <li>
-              <b>01</b> Eight years on the floor before the first remote client.
+              <b>01</b> Sign up online, get your plan, start the same week.
             </li>
             <li>
-              <b>02</b> 240+ people coached through cut, rebuild, and first
-              muscle that actually showed.
+              <b>02</b> Weekly check-ins with real numbers and form feedback.
             </li>
             <li>
-              <b>03</b> Still filming cues at 11pm because the lift matters more
-              than the aesthetic of coaching.
+              <b>03</b> {STATS[0].value} clients coached — and a coach who still
+              films cues at 11pm.
             </li>
           </ul>
+          <a className="btn btn-primary" href="#packages" style={{ marginTop: '1.6rem' }}>
+            See the Packages <Arrow />
+          </a>
         </div>
         <div className="collage">
           <div className="shot tall" role="img" aria-label="Coach training">
             <span className="shot-label">Personal Coaching</span>
           </div>
-          <div className="shot a" role="img" aria-label="Group training">
+          <div className="shot a" role="img" aria-label="Form review">
             <span className="shot-label">Form Reviews</span>
           </div>
-          <div className="shot b" role="img" aria-label="Gym floor">
-            <span className="shot-label">Real Programming</span>
-          </div>
+          <div className="shot b" role="img" aria-label="Training" />
         </div>
       </div>
     </section>
