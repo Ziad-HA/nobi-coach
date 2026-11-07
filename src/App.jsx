@@ -3,7 +3,7 @@ import Nav, { Arrow } from './components/Nav'
 import Footer from './components/Footer'
 import Calc from './components/Calc'
 import Booking from './components/Booking'
-import { FEEDBACK, PACKAGES, PROGRAMS, RESULTS, STATS } from './data'
+import { FEEDBACK, PACKAGES, PROGRAMS, STATS } from './data'
 
 const WORDS = [
   'DISCIPLINE',
@@ -342,6 +342,13 @@ function Packages() {
   )
 }
 
+const TRANSFORMATIONS = [
+  { src: '/results/tr1.jpg', alt: 'Client transformation, before and after' },
+  { src: '/results/tr2.jpg', alt: 'Client transformation, before and after' },
+  { src: '/results/tr3.jpg', alt: 'Client transformation, before and after' },
+  { src: '/results/tr4.jpg', alt: 'Client transformation, before and after' },
+]
+
 function Results() {
   return (
     <section className="section" id="results">
@@ -350,15 +357,19 @@ function Results() {
           <p className="eyebrow">Results</p>
           <h2>Transformations, not filters.</h2>
         </div>
+        <p className="lede muted">
+          Real clients. Real before and after. Same standard on every plan.
+        </p>
       </div>
-      <div className="result-grid">
-        {RESULTS.map((r) => (
-          <article className="result-card" key={r.name}>
-            <p className="eyebrow">{r.span}</p>
-            <h3>{r.name}</h3>
-            <p className="change">{r.change}</p>
-            <p className="muted">{r.quote}</p>
-          </article>
+      <div className="transform-grid">
+        {TRANSFORMATIONS.map((t, i) => (
+          <figure className="transform" key={t.src}>
+            <img src={t.src} alt={`${t.alt} ${i + 1}`} loading="lazy" />
+            <figcaption>
+              <span>Transformation 0{i + 1}</span>
+              <span className="ba">Before / After</span>
+            </figcaption>
+          </figure>
         ))}
       </div>
     </section>
