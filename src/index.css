@@ -356,6 +356,48 @@ textarea:focus-visible {
   color: var(--accent);
 }
 
+/* Hover (or focus / tap) the accent word and it keeps rolling over and over. */
+.hero h1 em.roll {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  height: 1.22em;
+  line-height: 1.22em;
+  cursor: default;
+  outline: none;
+}
+
+.hero h1 em.roll .roll-track {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero h1 em.roll .roll-track > span {
+  display: block;
+  height: 1.22em;
+  line-height: 1.22em;
+}
+
+.hero h1 em.roll:hover .roll-track,
+.hero h1 em.roll:focus-visible .roll-track,
+.hero h1 em.roll:active .roll-track {
+  animation: roll-up 0.75s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+}
+
+@keyframes roll-up {
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero h1 em.roll:hover .roll-track,
+  .hero h1 em.roll:focus-visible .roll-track,
+  .hero h1 em.roll:active .roll-track {
+    animation: none;
+  }
+}
+
 .hero-copy {
   max-width: 28rem;
   margin: 1.5rem 0 2rem;
