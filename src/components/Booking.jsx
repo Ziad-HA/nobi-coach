@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { PACKAGES, SLOTS } from '../data'
+import { useLang } from '../i18n'
 
 const empty = {
   name: '',
@@ -12,15 +13,23 @@ const empty = {
 }
 
 export default function Booking() {
+  const { t, pick } = useLang()
   const [form, setForm] = useState(empty)
-
-  useEffect(() => {
-    const saved = sessionStorage.getItem('nobi-pack')
-    if (saved && PACKAGES.some((p) => p.id === saved)) {
-      setForm((f) => ({ ...f, packageId: saved }))
-    }
-  }, [])
   const [done, setDone] = useState(null)
+
+  // A "Subscribe" button on the packages saves the choice, then we pick it up.
+  useEffect(() => {
+    const apply = () => {
+      const saved = sessionStorage.getItem('nobi-pack')
+      if (saved && PACKAGES.some((p) => p.id === saved)) {
+        setForm((f) => ({ ...f, packageId: saved }))
+      }
+    }
+    apply()
+    window.addEventListener('nobi-pack', apply)
+    return () => window.removeEventListener('nobi-pack', apply)
+  }, [])
+
   const pack = useMemo(
     () => PACKAGES.find((p) => p.id === form.packageId) || PACKAGES[1],
     [form.packageId],
@@ -46,12 +55,17 @@ export default function Booking() {
     return (
       <section className="section" id="book">
         <div className="success">
-          <p className="eyebrow">Locked in</p>
-          <h2>See you on the floor — even if the floor is your living room.</h2>
+          <p className="eyebrow">{t('book.done.eyebrow')}</p>
+          <h2>{t('book.done.title')}</h2>
           <p className="lede" style={{ marginTop: '1rem' }}>
-            {done.name}, your {done.packageName} intro is held for {done.date} at{' '}
-            {done.time}. Reference {done.ref}. Check {done.email} — in this demo
-            the hold lives in your browser until we wire payments.
+            {t('book.done.text', {
+              name: done.name,
+              pack: done.packageName,
+              date: done.date,
+              time: done.time,
+              ref: done.ref,
+              email: done.email,
+            })}
           </p>
           <button
             className="btn btn-primary"
@@ -62,7 +76,7 @@ export default function Booking() {
               setForm(empty)
             }}
           >
-            Book another slot
+            {t('book.another')}
           </button>
         </div>
       </section>
@@ -73,19 +87,16 @@ export default function Booking() {
     <section className="section" id="book">
       <div className="section-head">
         <div>
-          <p className="eyebrow">Booking / 07</p>
-          <h2>Claim a slot.</h2>
+          <p className="eyebrow">{t('book.eyebrow')}</p>
+          <h2>{t('book.title')}</h2>
         </div>
-        <p className="lede muted">
-          Intro call, then the subscription starts. Bring the PDF from the
-          calculator if you already ran your numbers.
-        </p>
+        <p className="lede muted">{t('book.copy')}</p>
       </div>
 
       <div className="calc-wrap">
         <form className="book-card form-grid" onSubmit={submit}>
           <label>
-            Name
+            {t('book.name')}
             <input
               required
               value={form.name}
@@ -94,40 +105,41 @@ export default function Booking() {
             />
           </label>
           <label>
-            Email
+            {t('book.email')}
             <input
               required
               type="email"
+              dir="ltr"
               value={form.email}
               autoComplete="email"
               onChange={(e) => set('email', e.target.value)}
             />
           </label>
           <label>
-            Package
+            {t('book.package')}
             <select
               value={form.packageId}
               onChange={(e) => set('packageId', e.target.value)}
             >
               {PACKAGES.map((p) => (
                 <option key={p.id} value={p.id}>
-                  {p.name} — ${p.price}
-                  {p.cadence}
+                  {p.name} — ${p.price} {pick(p.cadence)}
                 </option>
               ))}
             </select>
           </label>
           <label>
-            Goal
+            {t('book.goal')}
             <select value={form.goal} onChange={(e) => set('goal', e.target.value)}>
-              <option value="recomp">Recomp / shape</option>
-              <option value="cut">Fat loss</option>
-              <option value="build">Build muscle</option>
-              <option value="performance">Strength & technique</option>
+              {['recomp', 'cut', 'build', 'performance'].map((g) => (
+                <option key={g} value={g}>
+                  {t(`book.goal.${g}`)}
+                </option>
+              ))}
             </select>
           </label>
           <label>
-            Date
+            {t('book.date')}
             <input
               required
               type="date"
@@ -137,7 +149,7 @@ export default function Booking() {
             />
           </label>
           <label>
-            Time
+            {t('book.time')}
             <select value={form.time} onChange={(e) => set('time', e.target.value)}>
               {SLOTS.map((s) => (
                 <option key={s} value={s}>
@@ -147,39 +159,36 @@ export default function Booking() {
             </select>
           </label>
           <label className="span-2">
-            Anything I should know
+            {t('book.note')}
             <textarea
               value={form.note}
               onChange={(e) => set('note', e.target.value)}
-              placeholder="Injuries, schedule, previous training…"
+              placeholder={t('book.notePh')}
             />
           </label>
           <button className="btn btn-primary span-2" type="submit">
-            Confirm booking
+            {t('book.confirm')}
           </button>
         </form>
 
         <div className="book-card">
-          <p className="eyebrow">{pack.tag}</p>
+          <p className="eyebrow">{pick(pack.tag)}</p>
           <h3>{pack.name}</h3>
           <p className="price">
             ${pack.price}
-            <small>{pack.cadence}</small>
+            <small>{pick(pack.cadence)}</small>
           </p>
           <p className="muted" style={{ margin: '0.8rem 0 1rem' }}>
-            {pack.blurb}
+            {pick(pack.blurb)}
           </p>
           <ul>
-            {pack.features.map((f) => (
+            {pick(pack.features).map((f) => (
               <li key={f} style={{ listStyle: 'none' }}>
                 {f}
               </li>
             ))}
           </ul>
-          <p className="notice">
-            Subscriptions renew weekly until you pause. No lock-in after the
-            first 4 weeks.
-          </p>
+          <p className="notice">{t('book.renew')}</p>
         </div>
       </div>
     </section>

@@ -8,6 +8,8 @@ import {
   navyBodyFat,
 } from '../lib/calc'
 import { downloadNumbersPdf } from '../lib/pdf'
+import { Link } from 'react-router-dom'
+import { Lines, useLang } from '../i18n'
 
 const empty = {
   name: '',
@@ -22,6 +24,7 @@ const empty = {
 }
 
 export default function Calc() {
+  const { t, pick } = useLang()
   const [form, setForm] = useState(empty)
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
@@ -70,21 +73,21 @@ export default function Calc() {
 
   function exportPdf() {
     if (!nums) {
-      setError('Fill age, weight, and height first.')
+      setError(t('calc.err'))
       return
     }
     setBusy(true)
     setError('')
     try {
       downloadNumbersPdf({
-        name: form.name.trim() || 'Athlete',
+        name: form.name.trim() || t('calc.defaultName'),
         sex: form.sex,
         activity: form.activity,
-        createdAt: new Date().toLocaleString(),
+        createdAt: new Date().toLocaleString('en-GB'),
         ...nums,
       })
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Could not build the PDF.')
+      setError(err instanceof Error ? err.message : t('calc.pdfErr'))
     } finally {
       setBusy(false)
     }
@@ -94,18 +97,12 @@ export default function Calc() {
     <section className="section" id="calc">
       <div className="section-head">
         <div>
-          <p className="eyebrow">Calc / 06</p>
+          <p className="eyebrow">{t('calc.eyebrow')}</p>
           <h2>
-            Take your numbers
-            <br />
-            with you.
+            <Lines text={t('calc.title')} />
           </h2>
         </div>
-        <p className="lede muted">
-          Calories from Mifflin-St Jeor. Body fat from the US Navy tape method.
-          Then a branded A4 PDF — drawn, not screenshotted, so it actually
-          prints.
-        </p>
+        <p className="lede muted">{t('calc.copy')}</p>
       </div>
 
       <div className="calc-wrap">
@@ -118,26 +115,26 @@ export default function Calc() {
             }}
           >
             <label className="span-2">
-              Name on the PDF
+              {t('calc.name')}
               <input
                 value={form.name}
                 onChange={(e) => set('name', e.target.value)}
-                placeholder="Your name"
+                placeholder={t('calc.namePh')}
                 autoComplete="name"
               />
             </label>
             <label>
-              Sex
+              {t('calc.sex')}
               <select
                 value={form.sex}
                 onChange={(e) => set('sex', e.target.value)}
               >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="male">{t('calc.male')}</option>
+                <option value="female">{t('calc.female')}</option>
               </select>
             </label>
             <label>
-              Age
+              {t('calc.age')}
               <input
                 type="number"
                 min="14"
@@ -148,7 +145,7 @@ export default function Calc() {
               />
             </label>
             <label>
-              Weight (kg)
+              {t('calc.kg')}
               <input
                 type="number"
                 min="35"
@@ -159,7 +156,7 @@ export default function Calc() {
               />
             </label>
             <label>
-              Height (cm)
+              {t('calc.cm')}
               <input
                 type="number"
                 min="130"
@@ -169,20 +166,20 @@ export default function Calc() {
               />
             </label>
             <label className="span-2">
-              Training load
+              {t('calc.load')}
               <select
                 value={form.activity}
                 onChange={(e) => set('activity', e.target.value)}
               >
                 {Object.entries(ACTIVITY_OPTIONS).map(([id, opt]) => (
                   <option key={id} value={id}>
-                    {opt.label}
+                    {pick(opt.label)}
                   </option>
                 ))}
               </select>
             </label>
             <label>
-              Neck (cm)
+              {t('calc.neck')}
               <input
                 type="number"
                 min="20"
@@ -192,7 +189,7 @@ export default function Calc() {
               />
             </label>
             <label>
-              Waist (cm)
+              {t('calc.waist')}
               <input
                 type="number"
                 min="40"
@@ -203,7 +200,7 @@ export default function Calc() {
             </label>
             {form.sex === 'female' ? (
               <label className="span-2">
-                Hip (cm)
+                {t('calc.hip')}
                 <input
                   type="number"
                   min="50"
@@ -219,61 +216,62 @@ export default function Calc() {
               </p>
             ) : (
               <p className="notice span-2">
-                Tape the neck just below the larynx, waist at navel, hips at the
-                widest point. Estimates only — coaching still beats a formula.
+                {t('calc.hint')} {t('calc.pdfNote')}
               </p>
             )}
             <div className="span-2" style={{ display: 'flex', gap: '0.7rem', flexWrap: 'wrap' }}>
               <button className="btn btn-primary" type="submit" disabled={busy}>
-                {busy ? 'Building PDF…' : 'Download PDF'}
+                {busy ? t('calc.busy') : t('calc.pdf')}
               </button>
-              <a className="btn btn-ghost" href="#book">
-                Book a consult
-              </a>
+              <Link className="btn btn-ghost" to="/#book">
+                {t('calc.consult')}
+              </Link>
             </div>
           </form>
         </div>
 
         <div className="calc-card calc-out">
-          <p className="eyebrow">Live readout</p>
+          <p className="eyebrow">{t('calc.live')}</p>
           {nums ? (
             <>
               <div className="metric-row">
                 <div className="metric">
-                  <span>Cut</span>
+                  <span>{t('calc.cut')}</span>
                   <b>{nums.calories.cut}</b>
                 </div>
                 <div className="metric">
-                  <span>Maintain</span>
+                  <span>{t('calc.maintain')}</span>
                   <b>{nums.calories.maintain}</b>
                 </div>
                 <div className="metric">
-                  <span>Build</span>
+                  <span>{t('calc.build')}</span>
                   <b>{nums.calories.bulk}</b>
                 </div>
               </div>
               <div className="metric-row">
                 <div className="metric">
-                  <span>Body fat</span>
+                  <span>{t('calc.bf')}</span>
                   <b>{nums.bodyFat != null ? `${nums.bodyFat}%` : '—'}</b>
                 </div>
                 <div className="metric">
-                  <span>Lean mass</span>
-                  <b>{nums.lean != null ? `${nums.lean} kg` : '—'}</b>
+                  <span>{t('calc.lean')}</span>
+                  <b>{nums.lean != null ? `${nums.lean} ${t('tfp.kg')}` : '—'}</b>
                 </div>
                 <div className="metric">
-                  <span>BMR</span>
+                  <span>{t('calc.bmr')}</span>
                   <b>{nums.calories.bmr}</b>
                 </div>
               </div>
               <p className="muted">
-                {nums.bodyFatCategory} range · protein {nums.calories.protein}g ·
-                fat {nums.calories.fat}g. Download the sheet and bring it to
-                session one.
+                {t('calc.result', {
+                  c: t(`bf.${nums.bodyFatCategory}`),
+                  p: nums.calories.protein,
+                  f: nums.calories.fat,
+                })}
               </p>
             </>
           ) : (
-            <p className="muted">Enter the basics and the board fills in.</p>
+            <p className="muted">{t('calc.empty')}</p>
           )}
         </div>
       </div>

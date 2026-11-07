@@ -1,9 +1,24 @@
 const ACTIVITY = {
-  sedentary: { label: 'Sedentary (desk, little training)', factor: 1.2 },
-  light: { label: 'Light (1–3 sessions / week)', factor: 1.375 },
-  moderate: { label: 'Moderate (4–5 sessions / week)', factor: 1.55 },
-  active: { label: 'Active (6–7 sessions / week)', factor: 1.725 },
-  extra: { label: 'Extra (two-a-days / physical job)', factor: 1.9 },
+  sedentary: {
+    label: { en: 'Sedentary (desk, little training)', ar: 'قليل الحركة (شغل مكتبي، تمرين قليل)' },
+    factor: 1.2,
+  },
+  light: {
+    label: { en: 'Light (1–3 sessions / week)', ar: 'خفيف (1–3 حصص في الأسبوع)' },
+    factor: 1.375,
+  },
+  moderate: {
+    label: { en: 'Moderate (4–5 sessions / week)', ar: 'متوسط (4–5 حصص في الأسبوع)' },
+    factor: 1.55,
+  },
+  active: {
+    label: { en: 'Active (6–7 sessions / week)', ar: 'نشيط (6–7 حصص في الأسبوع)' },
+    factor: 1.725,
+  },
+  extra: {
+    label: { en: 'Extra (two-a-days / physical job)', ar: 'نشيط جدًا (تمرين مرتين في اليوم / شغل بدني)' },
+    factor: 1.9,
+  },
 }
 
 export const ACTIVITY_OPTIONS = ACTIVITY

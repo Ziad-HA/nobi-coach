@@ -1,65 +1,87 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { useLang } from '../i18n'
 
 const LINKS = [
-  ['#top', 'Home'],
-  ['#program', 'Programs'],
-  ['#packages', 'Packages'],
-  ['#results', 'Results'],
-  ['#calc', 'Calc'],
-  ['#contact', 'Contact'],
+  ['/', 'nav.home'],
+  ['/about', 'nav.about'],
+  ['/#program', 'nav.programs'],
+  ['/#packages', 'nav.packages'],
+  ['/transformations', 'nav.transformations'],
+  ['/#calc', 'nav.calc'],
+  ['/#contact', 'nav.contact'],
 ]
 
 export function Arrow() {
   return (
-    <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
+    <svg className="icon arrow" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M5 12h14M13 6l6 6-6 6" />
     </svg>
   )
 }
 
 export default function Nav() {
+  const { t, toggle } = useLang()
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const cls = ['nav', open ? 'open' : '', scrolled ? 'scrolled' : '']
+    .filter(Boolean)
+    .join(' ')
 
   return (
-    <header className={open ? 'nav open' : 'nav'}>
+    <header className={cls}>
       <a className="skip" href="#main">
-        Skip to content
+        {t('nav.skip')}
       </a>
       <div className="nav-inner">
-        <a className="logo" href="#top">
+        <Link className="logo" to="/" dir="ltr" onClick={() => setOpen(false)}>
           NOBI<span>COACH</span>
-        </a>
+        </Link>
         <nav className="nav-links" aria-label="Primary">
-          {LINKS.map(([href, label]) => (
-            <a key={href} href={href} onClick={() => setOpen(false)}>
-              {label}
-            </a>
-          ))}
+          {LINKS.map(([to, key]) => {
+            const active = !to.includes('#') && to === pathname && to !== '/'
+            return (
+              <Link
+                key={to}
+                to={to}
+                className={active ? 'active' : undefined}
+                aria-current={active ? 'page' : undefined}
+                onClick={() => setOpen(false)}
+              >
+                {t(key)}
+              </Link>
+            )
+          })}
         </nav>
         <div className="nav-cta">
-          <a className="icon-btn" href="#calc" aria-label="Calculator">
-            <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-3.5-3.5" />
-            </svg>
-          </a>
-          <a className="icon-btn" href="#contact" aria-label="Contact">
-            <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="12" cy="8" r="4" />
-              <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
-            </svg>
-          </a>
-          <a className="btn btn-primary nav-join" href="#packages">
-            Join Now <Arrow />
-          </a>
+          <button
+            className="lang-btn"
+            type="button"
+            onClick={toggle}
+            aria-label={t('nav.langLabel')}
+          >
+            {t('nav.lang')}
+          </button>
+          <Link className="btn btn-primary nav-join" to="/#packages">
+            {t('nav.join')} <Arrow />
+          </Link>
           <button
             className="nav-toggle"
             type="button"
             aria-expanded={open}
-            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-label={open ? t('nav.close') : t('nav.menu')}
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? 'Close' : 'Menu'}
+            {open ? t('nav.close') : t('nav.menu')}
           </button>
         </div>
       </div>

@@ -1,13 +1,19 @@
 import { jsPDF } from 'jspdf'
 
 const BG = [9, 9, 9]
-const VOLT = [214, 255, 58]
+const VOLT = [225, 29, 29]
 const TEXT = [244, 244, 240]
 const MUTED = [140, 140, 134]
 const LINE = [35, 35, 35]
 const SURFACE = [18, 18, 18]
 
-export function downloadNumbersPdf(report) {
+function latin(text, fallback) {
+  const clean = String(text || '').replace(/[^\x20-\x7E]/g, '').trim()
+  return clean || fallback
+}
+
+export function downloadNumbersPdf(input) {
+  const report = { ...input, name: latin(input.name, 'Athlete') }
   const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' })
   const W = 210
   const H = 297
@@ -131,7 +137,7 @@ export function downloadNumbersPdf(report) {
 
   doc.setFillColor(...VOLT)
   doc.rect(0, H - 10, W, 10, 'F')
-  doc.setTextColor(16, 20, 0)
+  doc.setTextColor(255, 255, 255)
   doc.setFont('helvetica', 'bold')
   doc.setFontSize(8)
   doc.text('NOBI COACH  ·  START YOUR TRANSFORMATION', m, H - 4)
@@ -152,7 +158,7 @@ function paintPage(doc, W, H) {
 function header(doc, m, W, report) {
   doc.setFont('helvetica', 'bold')
   doc.setFontSize(11)
-  doc.setTextColor(16, 20, 0)
+  doc.setTextColor(255, 255, 255)
   doc.text('NOBI COACH  /  TRAINING REPORT', m, 5)
 
   doc.setTextColor(...MUTED)
