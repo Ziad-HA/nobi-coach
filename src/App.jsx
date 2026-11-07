@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Nav from './components/Nav'
+import Nav, { Arrow } from './components/Nav'
 import Footer from './components/Footer'
 import Calc from './components/Calc'
 import Booking from './components/Booking'
@@ -38,30 +38,107 @@ export default function App() {
 }
 
 function Hero() {
+  const [sent, setSent] = useState(false)
+  const [lead, setLead] = useState({ name: '', email: '' })
+
   return (
     <section className="hero" id="top">
       <div className="hero-media" aria-hidden="true" />
       <div>
-        <p className="hero-kicker">Season 01 — Online coaching</p>
+        <p className="hero-kicker">Online coaching</p>
         <h1>
-          Start your
+          Stronger
           <br />
-          transformation<span>.</span>
+          <em>Everyday</em>
+          <br />
+          A Better You
         </h1>
         <p className="hero-copy">
-          Programming, nutrition, and eyes on your technique — without the gym
-          bro theatre. Show up. We handle the map.
+          Personalized programming, nutrition, and eyes on your technique to
+          help you reach your goals — wherever you train.
         </p>
         <div className="hero-actions">
           <a className="btn btn-primary" href="#packages">
-            Start your transformation
+            Start Your Journey <Arrow />
           </a>
-          <a className="btn btn-ghost" href="#book">
-            Book a call
+          <a className="btn btn-ghost" href="#program">
+            Explore Programs
           </a>
         </div>
+        <p className="hero-tags" aria-hidden="true">
+          <span>Train</span>
+          <span>Belong</span>
+          <span>Achieve</span>
+        </p>
       </div>
-      <p className="hero-rail">NOBI / COACH / 240+</p>
+      <aside className="hero-side">
+        <div className="glass">
+          <div className="glass-top">
+            <div>
+              <strong>240+</strong>
+              <small>Clients Coached</small>
+            </div>
+            <div className="glass-thumb" aria-hidden="true" />
+          </div>
+          <div className="avatars">
+            <i />
+            <i />
+            <i />
+            <span>
+              <b>94%+</b>
+              Still training at week 8
+            </span>
+          </div>
+          <a className="btn btn-primary" href="#book">
+            Book a Free Call <Arrow />
+          </a>
+        </div>
+        <div className="glass consult">
+          <h4>Get a Free Consultation</h4>
+          <p>Enter your details and I will contact you.</p>
+          {sent ? (
+            <p role="status">Got it. I will get back to you soon.</p>
+          ) : (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                setSent(true)
+              }}
+            >
+              <label className="pill-field">
+                <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
+                </svg>
+                <input
+                  required
+                  placeholder="Your Name"
+                  aria-label="Your name"
+                  value={lead.name}
+                  onChange={(e) => setLead({ ...lead, name: e.target.value })}
+                />
+              </label>
+              <label className="pill-field">
+                <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" />
+                </svg>
+                <input
+                  required
+                  type="email"
+                  placeholder="Your Email"
+                  aria-label="Your email"
+                  value={lead.email}
+                  onChange={(e) => setLead({ ...lead, email: e.target.value })}
+                />
+                <button className="go-btn" type="submit" aria-label="Send">
+                  <Arrow />
+                </button>
+              </label>
+            </form>
+          )}
+        </div>
+      </aside>
     </section>
   )
 }
@@ -83,13 +160,31 @@ function Marquee() {
 
 function Stats() {
   return (
-    <section className="stats" aria-label="Coaching stats">
-      {STATS.map((s) => (
-        <div className="stat" key={s.label}>
-          <strong>{s.value}</strong>
-          <span>{s.label}</span>
+    <section className="section" aria-label="Coaching stats" style={{ paddingBottom: 0 }}>
+      <div className="impact" style={{ margin: 0 }}>
+        <div className="impact-head">
+          <div>
+            <p className="eyebrow">Our impact</p>
+            <h2>
+              Real Results.
+              <br />
+              Real People.
+            </h2>
+          </div>
+          <p className="lede">
+            Online coaching focused on measurable progress — helping people
+            build stronger, healthier and more confident lives.
+          </p>
         </div>
-      ))}
+        <div className="stats">
+          {STATS.map((s) => (
+            <div className="stat" key={s.label}>
+              <strong>{s.value}</strong>
+              <span>{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   )
 }
@@ -97,10 +192,14 @@ function Stats() {
 function Story() {
   return (
     <section className="section" id="story">
-      <div className="split">
+      <div className="community">
         <div>
-          <p className="eyebrow">My story / 02</p>
-          <h2>I did not get here by feeling ready.</h2>
+          <p className="eyebrow">More than a coach</p>
+          <h2>
+            A Stronger
+            <br />
+            Community
+          </h2>
           <p className="lede" style={{ marginTop: '1.2rem' }}>
             I started as the kid who trained loud and moved badly. Injuries
             taught me that load without technique is just ego with a barcode.
@@ -121,7 +220,17 @@ function Story() {
             </li>
           </ul>
         </div>
-        <div className="story-photo" role="img" aria-label="Coach training" />
+        <div className="collage">
+          <div className="shot tall" role="img" aria-label="Coach training">
+            <span className="shot-label">Personal Coaching</span>
+          </div>
+          <div className="shot a" role="img" aria-label="Group training">
+            <span className="shot-label">Form Reviews</span>
+          </div>
+          <div className="shot b" role="img" aria-label="Gym floor">
+            <span className="shot-label">Real Programming</span>
+          </div>
+        </div>
       </div>
     </section>
   )
@@ -144,7 +253,7 @@ function Technique() {
       <div className="tech-grid">
         <article className="tech-card lead">
           <p className="eyebrow">The rule</p>
-          <h3 style={{ fontSize: '2.6rem' }}>
+          <h3 style={{ fontSize: '2.2rem' }}>
             If it does not look clean, it does not count.
           </h3>
         </article>
