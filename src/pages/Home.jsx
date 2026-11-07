@@ -44,7 +44,12 @@ function Hero() {
         <h1>
           <span {...rise(1)}>{t('hero.l1')}</span>
           <span {...rise(2)}>
-            <em>{t('hero.l2')}</em>
+            <em className="roll" tabIndex={0}>
+              <span className="roll-track">
+                <span>{t('hero.l2')}</span>
+                <span aria-hidden="true">{t('hero.l2')}</span>
+              </span>
+            </em>
           </span>
           <span {...rise(3)}>{t('hero.l3')}</span>
         </h1>
