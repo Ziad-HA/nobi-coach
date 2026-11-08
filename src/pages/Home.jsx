@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Arrow } from '../components/Arrow'
 import Booking from '../components/Booking'
-import Calc from '../components/Calc'
 import Payment from '../components/Payment'
 import ImageReveal from '../components/ImageReveal'
 import Reveal, { RevealGroup, RevealItem } from '../components/Reveal'
@@ -38,7 +37,6 @@ export default function Home() {
       <TransformationsTeaser />
       <Feedback />
       <CtaGym />
-      <Calc />
       <Booking />
       <Contact />
     </>

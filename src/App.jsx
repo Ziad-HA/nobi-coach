@@ -8,6 +8,7 @@ import Nav from './components/Nav'
 import ScrollProgress from './components/ScrollProgress'
 import Terms from './components/Terms'
 import About from './pages/About'
+import CalcPage from './pages/CalcPage'
 import Faq from './pages/Faq'
 import Home from './pages/Home'
 import Transformations from './pages/Transformations'
@@ -98,6 +99,7 @@ export default function App() {
           <Route path="about" element={<About />} />
           <Route path="faq" element={<Faq />} />
           <Route path="transformations" element={<Transformations />} />
+          <Route path="calc" element={<CalcPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
