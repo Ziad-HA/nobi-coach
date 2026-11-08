@@ -30,7 +30,6 @@ export default function Home() {
     <>
       <Hero />
       <Stats />
-      <TherapyBanner />
       <Technique />
       <Programs />
       <Manifesto />
@@ -38,7 +37,6 @@ export default function Home() {
       <Packages />
       <Payment />
       <TransformationsTeaser />
-      <StayHard />
       <Feedback />
       <CtaGym />
       <Calc />
@@ -202,11 +200,7 @@ function Manifesto() {
   const y = useTransform(scrollYProgress, [0, 1], ['-10%', '10%'])
   const words = t('manifesto.words').split('|')
   return (
-    <section className="manifesto section" ref={ref}>
-      <motion.div className="manifesto-bg" style={{ y }} aria-hidden="true">
-        <img src="/images/refuse.png" alt="" />
-      </motion.div>
-      <div className="manifesto-overlay" aria-hidden="true" />
+    <section className="manifesto section">
       <RevealGroup className="stair" stagger={0.16} aria-label={words.join(' ')}>
         {words.map((w) => (
           <RevealItem as="p" className="stair-w" key={w}>
@@ -221,46 +215,7 @@ function Manifesto() {
   )
 }
 
-// Full-bleed therapy image with parallax — raw gym energy between stats and technique.
-function TherapyBanner() {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const y = useTransform(scrollYProgress, [0, 1], ['-12%', '12%'])
 
-  return (
-    <section className="therapy-banner" ref={ref} aria-hidden="true">
-      <motion.div className="therapy-img-wrap" style={{ y }}>
-        <img src="/images/therapy.png" alt="The gym is therapy" />
-      </motion.div>
-      <div className="therapy-shade" />
-      <Reveal>
-        <p className="therapy-word">THERAPY.</p>
-      </Reveal>
-    </section>
-  )
-}
-
-// Stay Hard — 3-panel transformation visual before feedback.
-function StayHard() {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.06, 1, 1.06])
-
-  return (
-    <section className="stay-hard" ref={ref}>
-      <motion.img
-        className="stay-hard-img"
-        src="/images/stay-hard.png"
-        alt="Comfort → Discipline → Mindset: Stay Hard"
-        style={{ scale }}
-      />
-      <div className="stay-hard-shade" />
-      <Reveal delay={0.15}>
-        <p className="stay-hard-label">THE ONLY WAY OUT IS THROUGH.</p>
-      </Reveal>
-    </section>
-  )
-}
 
 function HowItWorks() {
   return (
@@ -395,7 +350,7 @@ function CtaGym() {
 
   return (
     <section className="cta-gym" ref={ref}>
-      <motion.img className="cta-gym-bg" src="/images/one-more.png" alt="" loading="lazy" style={{ y }} />
+      <motion.img className="cta-gym-bg" src="/images/gym.jpg" alt="" loading="lazy" style={{ y }} />
       <div className="cta-gym-shade" aria-hidden="true" />
       <SplitText text={t('cta.title')} />
       <Reveal delay={0.2}>
