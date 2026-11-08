@@ -2919,3 +2919,142 @@ h2 {
     animation: none;
   }
 }
+
+/* =====================================================================
+   Therapy banner, Stay Hard, Manifesto background
+   ===================================================================== */
+
+/* Manifesto background image */
+.manifesto {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(4rem, 10vw, 9rem);
+}
+
+.manifesto-bg {
+  position: absolute;
+  inset: -15%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.manifesto-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) brightness(0.22);
+}
+
+.manifesto-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom,
+    rgba(5,5,5,0.55) 0%,
+    rgba(5,5,5,0.25) 40%,
+    rgba(5,5,5,0.55) 100%);
+}
+
+.manifesto .stair,
+.manifesto .stair-sub,
+.manifesto [data-reveal] {
+  position: relative;
+  z-index: 2;
+}
+
+/* Therapy banner */
+.therapy-banner {
+  position: relative;
+  height: clamp(320px, 50vw, 600px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.therapy-img-wrap {
+  position: absolute;
+  inset: -15%;
+  z-index: 0;
+}
+
+.therapy-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6) contrast(1.1);
+}
+
+.therapy-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom,
+    rgba(5,5,5,0.7) 0%,
+    rgba(5,5,5,0.1) 40%,
+    rgba(5,5,5,0.7) 100%);
+}
+
+.therapy-word {
+  position: relative;
+  z-index: 2;
+  font-family: var(--hero-font);
+  font-size: clamp(5rem, 18vw, 14rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: rgba(255,255,255,0.08);
+  text-transform: uppercase;
+  mix-blend-mode: overlay;
+  user-select: none;
+  animation: therapy-pulse 4s ease-in-out infinite;
+}
+
+@keyframes therapy-pulse {
+  0%, 100% { color: rgba(255,255,255,0.08); letter-spacing: -0.02em; }
+  50%       { color: rgba(225,29,29,0.22);  letter-spacing:  0.01em; }
+}
+
+/* Stay Hard */
+.stay-hard {
+  position: relative;
+  height: clamp(260px, 40vw, 520px);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: clamp(1.5rem, 4vw, 3rem);
+}
+
+.stay-hard-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: brightness(0.75) contrast(1.1);
+}
+
+.stay-hard-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(5,5,5,0.3) 0%,
+    rgba(5,5,5,0.0) 40%,
+    rgba(5,5,5,0.75) 100%);
+}
+
+.stay-hard-label {
+  position: relative;
+  z-index: 2;
+  font-family: var(--nav-font);
+  font-weight: 700;
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .therapy-word { animation: none; }
+}
