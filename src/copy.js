@@ -9,6 +9,7 @@ export const copy = {
   'nav.feedback': 'Feedback',
   'nav.packages': 'Packages',
   'nav.faq': 'FAQ',
+  'nav.calc': 'Calculator',
   'nav.chat': 'Chat Now',
   'nav.menu': 'Menu',
   'nav.close': 'Close',

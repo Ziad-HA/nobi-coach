@@ -10,6 +10,7 @@ const LINKS = [
   ['/#feedback', 'nav.feedback'],
   ['/#packages', 'nav.packages'],
   ['/faq', 'nav.faq'],
+  ['/calc', 'nav.calc'],
 ]
 
 function ChatIcon() {
