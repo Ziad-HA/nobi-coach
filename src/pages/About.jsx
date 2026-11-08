@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Arrow } from '../components/Arrow'
-import Reveal from '../components/Reveal'
-import { STATS } from '../data'
-import { Lines, useLang } from '../i18n'
+import Reveal, { RevealGroup } from '../components/Reveal'
+import SpotCard from '../components/SpotCard'
+import SplitText from '../components/SplitText'
+import StatsGrid from '../components/StatsGrid'
+import { Lines, t } from '../text'
 
 const VALUES = ['v1', 'v2', 'v3']
 const STEPS = ['s1', 's2', 's3', 's4']
 
 export default function About() {
-  const { t, pick } = useLang()
   const [noPhoto, setNoPhoto] = useState(false)
 
   return (
@@ -44,7 +45,7 @@ export default function About() {
                 onError={() => setNoPhoto(true)}
               />
             )}
-            <span className="portrait-mark" dir="ltr" aria-hidden="true">
+            <span className="portrait-mark" aria-hidden="true">
               N
             </span>
             <span className="shot-label">{t('about.portrait')}</span>
@@ -54,14 +55,7 @@ export default function About() {
 
       <section className="section" style={{ paddingTop: '2rem' }}>
         <Reveal className="impact" y={30}>
-          <div className="stats">
-            {STATS.map((s) => (
-              <div className="stat" key={pick(s.label)}>
-                <strong dir="ltr">{pick(s.value)}</strong>
-                <span>{pick(s.label)}</span>
-              </div>
-            ))}
-          </div>
+          <StatsGrid />
         </Reveal>
       </section>
 
@@ -69,7 +63,7 @@ export default function About() {
         <div className="story-grid">
           <Reveal>
             <p className="eyebrow">{t('about.story.eyebrow')}</p>
-            <h2>{t('about.story.title')}</h2>
+            <SplitText text={t('about.story.title')} />
           </Reveal>
           <Reveal delay={0.15} className="story-text">
             <p className="lede">{t('about.story.p1')}</p>
@@ -86,15 +80,15 @@ export default function About() {
             <h2>{t('about.values.title')}</h2>
           </div>
         </Reveal>
-        <Reveal className="value-grid" delay={0.15}>
+        <RevealGroup className="value-grid" stagger={0.14}>
           {VALUES.map((v, i) => (
-            <article className="program-card" key={v}>
-              <code>0{i + 1}</code>
+            <SpotCard key={v}>
+              <span className="spot-num">0{i + 1}</span>
               <h3>{t(`about.${v}.title`)}</h3>
               <p className="muted">{t(`about.${v}.text`)}</p>
-            </article>
+            </SpotCard>
           ))}
-        </Reveal>
+        </RevealGroup>
       </section>
 
       <section className="section">
@@ -104,15 +98,15 @@ export default function About() {
             <h2>{t('about.how.title')}</h2>
           </div>
         </Reveal>
-        <Reveal className="program-grid" delay={0.15}>
+        <RevealGroup className="program-grid" stagger={0.14}>
           {STEPS.map((s, i) => (
-            <article className="program-card" key={s}>
-              <code>0{i + 1}</code>
+            <SpotCard key={s}>
+              <span className="spot-num">0{i + 1}</span>
               <h3>{t(`about.${s}.title`)}</h3>
               <p className="muted">{t(`about.${s}.text`)}</p>
-            </article>
+            </SpotCard>
           ))}
-        </Reveal>
+        </RevealGroup>
       </section>
 
       <section className="section">

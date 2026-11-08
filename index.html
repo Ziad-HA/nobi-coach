@@ -2,17 +2,6 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <script>
-      // Apply the saved language before first paint so RTL never flashes in for English.
-      try {
-        if (localStorage.getItem('nobi-lang') === 'ar') {
-          document.documentElement.lang = 'ar'
-          document.documentElement.dir = 'rtl'
-        }
-      } catch (e) {
-        /* storage unavailable */
-      }
-    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
@@ -22,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Outfit:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Outfit:wght@400;500;600;700;800&family=Barlow+Condensed:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <title>NOBI Coach — Start Your Transformation</title>

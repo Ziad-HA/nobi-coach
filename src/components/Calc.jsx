@@ -9,7 +9,7 @@ import {
 } from '../lib/calc'
 import { downloadNumbersPdf } from '../lib/pdf'
 import { Link } from 'react-router-dom'
-import { Lines, useLang } from '../i18n'
+import { Lines, t } from '../text'
 
 const empty = {
   name: '',
@@ -24,7 +24,6 @@ const empty = {
 }
 
 export default function Calc() {
-  const { t, pick } = useLang()
   const [form, setForm] = useState(empty)
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
@@ -173,7 +172,7 @@ export default function Calc() {
               >
                 {Object.entries(ACTIVITY_OPTIONS).map(([id, opt]) => (
                   <option key={id} value={id}>
-                    {pick(opt.label)}
+                    {opt.label}
                   </option>
                 ))}
               </select>

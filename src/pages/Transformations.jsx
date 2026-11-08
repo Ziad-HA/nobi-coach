@@ -4,10 +4,9 @@ import { Arrow } from '../components/Arrow'
 import Reveal from '../components/Reveal'
 import TransformCard from '../components/TransformCard'
 import { TRANSFORMATIONS } from '../data'
-import { Lines, useLang } from '../i18n'
+import { Lines, t } from '../text'
 
 export default function Transformations() {
-  const { t } = useLang()
   const [open, setOpen] = useState(null)
 
   useEffect(() => {

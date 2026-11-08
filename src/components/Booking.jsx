@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { PACKAGES, SLOTS } from '../data'
-import { useLang } from '../i18n'
+import { t } from '../text'
 
 const empty = {
   name: '',
@@ -13,7 +13,6 @@ const empty = {
 }
 
 export default function Booking() {
-  const { t, pick } = useLang()
   const [form, setForm] = useState(empty)
   const [done, setDone] = useState(null)
 
@@ -109,7 +108,7 @@ export default function Booking() {
             <input
               required
               type="email"
-              dir="ltr"
+             
               value={form.email}
               autoComplete="email"
               onChange={(e) => set('email', e.target.value)}
@@ -123,7 +122,7 @@ export default function Booking() {
             >
               {PACKAGES.map((p) => (
                 <option key={p.id} value={p.id}>
-                  {p.name} — ${p.price} {pick(p.cadence)}
+                  {p.name} — ${p.price} {p.cadence}
                 </option>
               ))}
             </select>
@@ -172,17 +171,17 @@ export default function Booking() {
         </form>
 
         <div className="book-card">
-          <p className="eyebrow">{pick(pack.tag)}</p>
+          <p className="eyebrow">{pack.tag}</p>
           <h3>{pack.name}</h3>
           <p className="price">
             ${pack.price}
-            <small>{pick(pack.cadence)}</small>
+            <small>{pack.cadence}</small>
           </p>
           <p className="muted" style={{ margin: '0.8rem 0 1rem' }}>
-            {pick(pack.blurb)}
+            {pack.blurb}
           </p>
           <ul>
-            {pick(pack.features).map((f) => (
+            {pack.features.map((f) => (
               <li key={f} style={{ listStyle: 'none' }}>
                 {f}
               </li>

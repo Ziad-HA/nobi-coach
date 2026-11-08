@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { useLang } from '../i18n'
+import { t } from '../text'
 
 const ease = [0.76, 0, 0.24, 1]
 
 export default function Intro({ onDone }) {
-  const { t } = useLang()
 
   useEffect(() => {
     const id = setTimeout(onDone, 2500)
@@ -26,7 +25,7 @@ export default function Intro({ onDone }) {
       <button className="intro-skip" type="button" onClick={onDone}>
         {t('intro.skip')}
       </button>
-      <div className="intro-center" dir="ltr">
+      <div className="intro-center">
         <div className="intro-word" aria-label="NOBI COACH">
           {'NOBI'.split('').map((ch, i) => (
             <span className="intro-mask" key={i}>
