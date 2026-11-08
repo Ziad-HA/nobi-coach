@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Arrow } from '../components/Nav'
+import { Arrow } from '../components/Arrow'
 import Calc from '../components/Calc'
 import Booking from '../components/Booking'
 import Reveal from '../components/Reveal'
@@ -27,118 +27,34 @@ export default function Home() {
   )
 }
 
-const rise = (i) => ({ className: 'rise', style: { '--i': i } })
-
 function Hero() {
   const { t } = useLang()
-  const [sent, setSent] = useState(false)
-  const [lead, setLead] = useState({ name: '', email: '' })
 
   return (
-    <section className="hero" id="top">
-      <div className="hero-media" aria-hidden="true" />
-      <div>
-        <p className="hero-kicker rise" style={{ '--i': 0 }}>
-          {t('hero.kicker')}
-        </p>
-        <h1>
-          <span {...rise(1)}>{t('hero.l1')}</span>
-          <span {...rise(2)}>
-            <em className="roll" tabIndex={0}>
-              <span className="roll-track">
-                <span>{t('hero.l2')}</span>
-                <span aria-hidden="true">{t('hero.l2')}</span>
-              </span>
-            </em>
-          </span>
-          <span {...rise(3)}>{t('hero.l3')}</span>
+    <section className="hero-nobi" id="top">
+      <div className="hero-overlay-nobi" aria-hidden="true" />
+      
+      <div className="hero-container-nobi">
+        <div className="tag-nobi rise" style={{ '--i': 0 }}>
+          <span className="red-dot"></span>
+          NOBI ELITE COACHING — EST. 2026
+        </div>
+
+        <h1 className="title-nobi">
+          <span className="text-white rise" style={{ '--i': 1 }}>TRAIN RIGHT.</span>
+          <span className="text-red rise" style={{ '--i': 2 }}>SEE THE DIFFERENCE.</span>
         </h1>
-        <p className="hero-copy rise" style={{ '--i': 4 }}>
-          {t('hero.copy')}
+
+        <p className="desc-nobi rise" style={{ '--i': 3 }}>
+          Elite online coaching, premium gear, and the high-performance mindset to dominate. Designed strictly for champions who refuse to settle.
         </p>
-        <div className="hero-actions rise" style={{ '--i': 5 }}>
-          <Link className="btn btn-primary" to="/#packages">
-            {t('hero.start')} <Arrow />
-          </Link>
-          <Link className="btn btn-ghost" to="/#program">
-            {t('hero.explore')}
+
+        <div className="actions-nobi rise" style={{ '--i': 4 }}>
+          <Link className="btn-main-nobi" to="/#packages">
+            JOIN THE PROGRAM &rarr;
           </Link>
         </div>
-        <p className="hero-tags rise" style={{ '--i': 6 }} aria-hidden="true">
-          <span>{t('hero.tag1')}</span>
-          <span>{t('hero.tag2')}</span>
-          <span>{t('hero.tag3')}</span>
-        </p>
       </div>
-      <aside className="hero-side">
-        <div className="glass rise-late" style={{ '--i': 0 }}>
-          <div className="glass-top">
-            <div>
-              <strong dir="ltr">{STATS[0].value}</strong>
-              <small>{t('hero.clients')}</small>
-            </div>
-            <div className="glass-thumb" aria-hidden="true" />
-          </div>
-          <div className="avatars">
-            <i />
-            <i />
-            <i />
-            <span>
-              <b dir="ltr">{STATS[2].value}</b>
-              {t('hero.still')}
-            </span>
-          </div>
-          <Link className="btn btn-primary" to="/#book">
-            {t('hero.bookcall')} <Arrow />
-          </Link>
-        </div>
-        <div className="glass consult rise-late" style={{ '--i': 1 }}>
-          <h4>{t('hero.consult.title')}</h4>
-          <p>{t('hero.consult.sub')}</p>
-          {sent ? (
-            <p role="status">{t('hero.thanks')}</p>
-          ) : (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                setSent(true)
-              }}
-            >
-              <label className="pill-field">
-                <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <circle cx="12" cy="8" r="4" />
-                  <path d="M4 21c0-4 4-6 8-6s8 2 8 6" />
-                </svg>
-                <input
-                  required
-                  placeholder={t('hero.name')}
-                  aria-label={t('hero.name')}
-                  value={lead.name}
-                  onChange={(e) => setLead({ ...lead, name: e.target.value })}
-                />
-              </label>
-              <label className="pill-field">
-                <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <rect x="3" y="5" width="18" height="14" rx="2" />
-                  <path d="m3 7 9 6 9-6" />
-                </svg>
-                <input
-                  required
-                  type="email"
-                  dir="ltr"
-                  placeholder={t('hero.email')}
-                  aria-label={t('hero.email')}
-                  value={lead.email}
-                  onChange={(e) => setLead({ ...lead, email: e.target.value })}
-                />
-                <button className="go-btn" type="submit" aria-label={t('hero.send')}>
-                  <Arrow />
-                </button>
-              </label>
-            </form>
-          )}
-        </div>
-      </aside>
     </section>
   )
 }

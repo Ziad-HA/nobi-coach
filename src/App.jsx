@@ -8,6 +8,7 @@ import About from './pages/About'
 import Home from './pages/Home'
 import Transformations from './pages/Transformations'
 
+
 function introAlreadySeen() {
   try {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return true
