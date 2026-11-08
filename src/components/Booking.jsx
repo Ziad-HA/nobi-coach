@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { PACKAGES, SLOTS } from '../data'
+import { PACKAGES, SLOTS, money } from '../data'
 import { t } from '../text'
 
 const empty = {
@@ -122,7 +122,7 @@ export default function Booking() {
             >
               {PACKAGES.map((p) => (
                 <option key={p.id} value={p.id}>
-                  {p.name} — ${p.price} {p.cadence}
+                  {p.name} — {money(p.price)} {p.cadence}
                 </option>
               ))}
             </select>
@@ -174,7 +174,7 @@ export default function Booking() {
           <p className="eyebrow">{pack.tag}</p>
           <h3>{pack.name}</h3>
           <p className="price">
-            ${pack.price}
+            {money(pack.price)}
             <small>{pack.cadence}</small>
           </p>
           <p className="muted" style={{ margin: '0.8rem 0 1rem' }}>

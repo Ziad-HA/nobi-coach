@@ -9,3 +9,14 @@ export const SOCIALS = {
   facebook: '',
   youtube: '',
 }
+
+// Payment details shown in the "Easy payment options" section.
+// Leave one empty and its card shows "Ask on WhatsApp" instead.
+export const PAYMENT = {
+  instapay: '',
+  vodafoneCash: '',
+  telda: '',
+  // Outside Egypt (Tap Tap Send). Leave empty to hide the line.
+  tapPhone: '',
+  fullName: '',
+}

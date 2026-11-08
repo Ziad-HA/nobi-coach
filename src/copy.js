@@ -57,7 +57,7 @@ export const copy = {
   'packages.eyebrow': 'Packages / 05',
   'packages.title': 'Subscriptions that actually *coach.*',
   'packages.copy':
-    'Weekly billing. Pause anytime after week four. This is not a dump of PDFs — it is eyes on your training.',
+    'Monthly billing in EGP. Pause anytime after the first month. This is not a dump of PDFs — it is eyes on your training.',
   'packages.subscribe': 'Subscribe',
 
   'tf.eyebrow': 'Results',
@@ -140,7 +140,7 @@ export const copy = {
     '{name}, your {pack} intro is held for {date} at {time}. Reference {ref}. Check {email} — in this demo the hold lives in your browser until we wire payments.',
   'book.another': 'Book another slot',
   'book.renew':
-    'Subscriptions renew weekly until you pause. No lock-in after the first 4 weeks.',
+    'Subscriptions renew monthly until you pause. No lock-in after the first month.',
 
   'contact.eyebrow': 'Contact / 08',
   'contact.title': 'Talk before you pay.',
@@ -204,6 +204,34 @@ export const copy = {
   'about.cta.title': 'Ready to start?',
   'about.cta.packages': 'See the Packages',
   'about.cta.book': 'Book a call',
+
+  'manifesto.words': 'STOP|TALKING.|START|LIFTING.|NO EXCUSES.',
+  'manifesto.sub': 'Results are built in the boring reps. Show up and let the numbers talk.',
+
+  'pay.eyebrow': 'Payment',
+  'pay.title': 'EASY *PAYMENT* OPTIONS',
+  'pay.sub': 'We accept all major Egyptian payment methods for your convenience.',
+  'pay.insta.desc': 'Send payment via Instapay and screenshot the confirmation.',
+  'pay.voda.desc': 'Transfer via Vodafone Cash and save your transaction reference.',
+  'pay.telda.desc': 'Search this username on Telda and send the payment.',
+  'pay.fawry.desc': 'Fawry payment integration coming soon. Stay tuned.',
+  'pay.soon': 'COMING SOON',
+  'pay.ask': 'ASK ON WHATSAPP',
+  'pay.out.title': 'Outside Egypt?',
+  'pay.out.via': 'Pay via Tap Tap Send app',
+  'pay.out.phone': 'Phone number:',
+  'pay.out.name': 'Full name:',
+  'pay.or': 'OR',
+  'pay.out.alt': 'App not available? Contact us on WhatsApp to receive bank account details for your country.',
+  'pay.contact': 'Contact Us',
+  'pay.after': 'After payment, send your confirmation on WhatsApp to activate your plan.',
+
+  'terms.title': 'TERMS & CONDITIONS',
+  'terms.p1': "By making a payment and enrolling in NOBI Coach programs, I acknowledge and agree that I have read, understood, and accept all terms and conditions of the coaching service. I understand that each coaching package runs for the duration of the package I choose and that results may vary based on individual effort, consistency, and adherence to the provided nutrition and training plans. I acknowledge that once I have begun my training journey, received my personalized plans, and engaged in the coaching process, no refunds will be provided under any circumstances. I commit to following the program guidelines and communicating any concerns directly with my coach to get the most out of my experience.",
+  'terms.p2': 'The only exception for a refund is in the case of a documented coaching service failure, where NOBI Coach has demonstrably failed to deliver the agreed-upon coaching services as outlined in the selected package.',
+  'terms.p3': '(Also there is no refund on deposits made on Instagram or WhatsApp.)',
+  'terms.agree': 'I have read and agree to the terms and conditions above.',
+  'terms.btn': 'I Agree & Continue',
 
   'tfp.eyebrow': 'Transformations',
   'tfp.h1': 'Results,\nnot promises.',
