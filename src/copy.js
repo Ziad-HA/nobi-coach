@@ -18,6 +18,12 @@ export const copy = {
     'nav.skip': 'Skip to content',
     'nav.lang': 'عربي',
     'nav.langLabel': 'التبديل للعربية',
+    'nav.features': 'Features',
+    'nav.results': 'Results',
+    'nav.feedback': 'Feedback',
+    'nav.shop': 'Shop',
+    'nav.faq': 'FAQ',
+    'nav.chat': 'Chat Now',
 
     'intro.tag': 'Start your transformation',
     'intro.skip': 'Skip',
@@ -42,6 +48,12 @@ export const copy = {
     'hero.email': 'Your Email',
     'hero.send': 'Send',
     'hero.thanks': 'Got it. I will get back to you soon.',
+    'hero.eyebrow': 'NOBI ELITE COACHING — EST. 2026',
+    'hero.line1': 'TRAIN RIGHT.',
+    'hero.line2': 'SEE THE DIFFERENCE.',
+    'hero.lede':
+      'Elite online coaching, premium gear, and the high-performance mindset to dominate. Designed strictly for champions who refuse to settle.',
+    'hero.join': 'JOIN THE PROGRAM',
 
     'marquee.words':
       'DISCIPLINE|TECHNIQUE|CONSISTENCY|SHOW UP|NO EXCUSES|EARN IT',
@@ -253,6 +265,12 @@ export const copy = {
     'nav.skip': 'تخطّى للمحتوى',
     'nav.lang': 'EN',
     'nav.langLabel': 'Switch to English',
+    'nav.features': 'المميزات',
+    'nav.results': 'النتائج',
+    'nav.feedback': 'آراء العملاء',
+    'nav.shop': 'المتجر',
+    'nav.faq': 'الأسئلة الشائعة',
+    'nav.chat': 'كلمني دلوقتي',
 
     'intro.tag': 'ابدأ تحويلك',
     'intro.skip': 'تخطّي',
@@ -277,6 +295,12 @@ export const copy = {
     'hero.email': 'إيميلك',
     'hero.send': 'إرسال',
     'hero.thanks': 'وصلتني. هرد عليك قريب.',
+    'hero.eyebrow': 'نوبي إيليت كوتشينج — منذ ٢٠٢٦',
+    'hero.line1': 'اتمرّن صح.',
+    'hero.line2': 'وشوف الفرق.',
+    'hero.lede':
+      'كوتشينج أونلاين على مستوى النخبة، ومعدات بريميوم، وعقلية الأداء العالي عشان تسيطر. معمول للأبطال اللي مبيرضوش بأقل من كده.',
+    'hero.join': 'انضم للبرنامج',
 
     'marquee.words': 'الانضباط|التكنيك|الاستمرار|احضر|من غير أعذار|استاهلها',
 

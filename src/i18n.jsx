@@ -10,7 +10,7 @@ function readLang() {
   } catch {
     /* storage unavailable */
   }
-  return 'ar'
+  return 'en'
 }
 
 export function LangProvider({ children }) {

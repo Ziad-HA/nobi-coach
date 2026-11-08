@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Arrow } from '../components/Nav'
+import { Arrow } from '../components/Arrow'
 import Reveal from '../components/Reveal'
 import TransformCard from '../components/TransformCard'
 import { TRANSFORMATIONS } from '../data'

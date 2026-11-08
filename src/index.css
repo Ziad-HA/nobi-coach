@@ -1596,3 +1596,366 @@ html[dir='rtl'] .price {
     opacity: 1 !important;
   }
 }
+
+/* ---------- NOBI nav + hero: black, huge condensed headline, red accent ---------- */
+
+:root {
+  --chat: #1fa855;
+  --chat-hover: #1b9549;
+  --hero-font: 'Anton', 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --nav-h: 72px;
+}
+
+.nav-nobi {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  z-index: 40;
+  background: rgba(5, 5, 5, 0.94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+}
+
+.nav-inner-nobi {
+  display: flex;
+  align-items: stretch;
+  height: var(--nav-h);
+  padding-inline-start: clamp(1rem, 3vw, 1.75rem);
+  gap: 1.5rem;
+}
+
+.logo-nobi {
+  display: flex;
+  align-items: center;
+  gap: 0.28em;
+  font-family: var(--display);
+  font-size: 2.1rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.logo-red {
+  color: var(--accent);
+}
+
+.nav-links-nobi {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 2.6rem);
+  margin-inline: auto;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.nav-links-nobi a:not(.btn-chat-nobi) {
+  opacity: 0.92;
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.nav-links-nobi a:not(.btn-chat-nobi):hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.nav-cta-nobi {
+  display: flex;
+  align-items: stretch;
+}
+
+.lang-nobi,
+.nav-toggle-nobi {
+  padding: 0 1.2rem;
+  background: var(--surface);
+  border-inline: 1px solid var(--line);
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+
+.lang-nobi {
+  min-width: 84px;
+}
+
+.lang-nobi:hover,
+.nav-toggle-nobi:hover {
+  color: var(--accent);
+}
+
+.nav-toggle-nobi {
+  display: none;
+  align-items: center;
+}
+
+.btn-chat-nobi {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0 1.6rem;
+  background: var(--chat);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.05rem;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+.btn-chat-nobi:hover {
+  background: var(--chat-hover);
+}
+
+.chat-in-menu {
+  display: none;
+}
+
+.nav-nobi a:focus-visible,
+.nav-nobi button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+}
+
+@media (max-width: 960px) {
+  .nav-inner-nobi {
+    --nav-h: 64px;
+  }
+
+  .nav-cta-nobi {
+    margin-inline-start: auto;
+  }
+
+  .nav-links-nobi {
+    display: none;
+  }
+
+  .nav-nobi.open .nav-links-nobi {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    margin: 0;
+    padding: 0.4rem var(--pad) 1.4rem;
+    background: #0a0a0a;
+    border-bottom: 1px solid var(--line);
+    font-size: 1.05rem;
+  }
+
+  .nav-links-nobi a:not(.btn-chat-nobi) {
+    padding: 0.95rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .chat-in-bar {
+    display: none;
+  }
+
+  .nav-nobi.open .chat-in-menu {
+    display: inline-flex;
+    min-height: 52px;
+    margin-top: 1.2rem;
+  }
+
+  .nav-toggle-nobi {
+    display: inline-flex;
+  }
+
+  .lang-nobi {
+    min-width: 64px;
+    border-inline-end: 0;
+  }
+}
+
+.hero-nobi {
+  position: relative;
+  isolation: isolate;
+  min-height: min(100dvh, 920px);
+  display: grid;
+  place-items: center;
+  padding: 8rem var(--pad) 5.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-overlay-nobi {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 55% at 50% 45%, rgba(225, 29, 29, 0.2), transparent 70%),
+    linear-gradient(180deg, rgba(5, 5, 5, 0.7) 0%, rgba(5, 5, 5, 0.55) 50%, var(--bg) 100%),
+    url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1800&q=70')
+      center / cover no-repeat;
+}
+
+.hero-container-nobi {
+  width: 100%;
+  max-width: 1280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tag-nobi {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 1.1rem;
+  margin-bottom: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(5, 5, 5, 0.55);
+  backdrop-filter: blur(8px);
+  font-size: 0.76rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.red-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.title-nobi {
+  display: grid;
+  justify-items: center;
+  font-family: var(--hero-font);
+  font-weight: 400;
+  font-size: clamp(3rem, 9vw, 8.5rem);
+  line-height: 0.98;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.title-nobi span {
+  display: block;
+}
+
+.title-nobi .text-white {
+  color: var(--text);
+}
+
+.title-nobi .text-red {
+  color: var(--accent);
+}
+
+.desc-nobi {
+  max-width: 40rem;
+  margin: 1.8rem 0 2.2rem;
+  color: #e6e2df;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+}
+
+.btn-main-nobi {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  min-height: 58px;
+  padding: 0 2.3rem;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--display);
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.btn-main-nobi:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.btn-main-nobi:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.badge-nobi {
+  position: absolute;
+  inset-inline-end: clamp(1rem, 3vw, 2.5rem);
+  bottom: 2rem;
+  width: 150px;
+  height: 150px;
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  pointer-events: none;
+}
+
+.badge-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* The ring text is always English; RTL would flip it off the path */
+  direction: ltr;
+  animation: badge-spin 22s linear infinite;
+}
+
+.badge-ring text {
+  font-family: var(--display);
+  font-size: 12px;
+  fill: currentColor;
+}
+
+.badge-icon {
+  width: 40px;
+  height: 40px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@keyframes badge-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-nobi {
+    padding-top: 7rem;
+  }
+
+  .tag-nobi {
+    padding: 0.5rem 0.9rem;
+    border-radius: 18px;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-wrap: balance;
+  }
+
+  .badge-nobi {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge-ring {
+    animation: none;
+  }
+}
+
+/* Arabic: Anton / Bebas have no Arabic glyphs, so use Cairo and keep Arabic letters joined */
+html[lang='ar'] .title-nobi {
+  font-family: var(--font);
+  font-weight: 800;
+  line-height: 1.15;
+  text-transform: none;
+}
+
+html[lang='ar'] .btn-main-nobi {
+  font-family: var(--font);
+  font-size: 1.15rem;
+  font-weight: 700;
+}

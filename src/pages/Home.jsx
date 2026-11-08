@@ -33,27 +33,47 @@ function Hero() {
   return (
     <section className="hero-nobi" id="top">
       <div className="hero-overlay-nobi" aria-hidden="true" />
-      
+
       <div className="hero-container-nobi">
         <div className="tag-nobi rise" style={{ '--i': 0 }}>
-          <span className="red-dot"></span>
-          NOBI ELITE COACHING — EST. 2026
+          <span className="red-dot" aria-hidden="true" />
+          {t('hero.eyebrow')}
         </div>
 
         <h1 className="title-nobi">
-          <span className="text-white rise" style={{ '--i': 1 }}>TRAIN RIGHT.</span>
-          <span className="text-red rise" style={{ '--i': 2 }}>SEE THE DIFFERENCE.</span>
+          <span className="text-white rise" style={{ '--i': 1 }}>
+            {t('hero.line1')}
+          </span>
+          <span className="text-red rise" style={{ '--i': 2 }}>
+            {t('hero.line2')}
+          </span>
         </h1>
 
         <p className="desc-nobi rise" style={{ '--i': 3 }}>
-          Elite online coaching, premium gear, and the high-performance mindset to dominate. Designed strictly for champions who refuse to settle.
+          {t('hero.lede')}
         </p>
 
         <div className="actions-nobi rise" style={{ '--i': 4 }}>
           <Link className="btn-main-nobi" to="/#packages">
-            JOIN THE PROGRAM &rarr;
+            {t('hero.join')} <Arrow />
           </Link>
         </div>
+      </div>
+
+      <div className="badge-nobi" aria-hidden="true">
+        <svg className="badge-ring" viewBox="0 0 120 120">
+          <defs>
+            <path id="badge-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" />
+          </defs>
+          <text>
+            <textPath href="#badge-circle" textLength="284" lengthAdjust="spacing">
+              NOBI COACH • NO EXCUSES •
+            </textPath>
+          </text>
+        </svg>
+        <svg className="badge-icon" viewBox="0 0 24 24">
+          <path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11" />
+        </svg>
       </div>
     </section>
   )

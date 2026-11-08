@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Arrow } from '../components/Nav'
+import { Arrow } from '../components/Arrow'
 import Reveal from '../components/Reveal'
 import { STATS } from '../data'
 import { Lines, useLang } from '../i18n'
