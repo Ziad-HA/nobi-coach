@@ -1,12 +1,15 @@
 // Site content that is not plain page text. Edit the numbers, names and reviews here.
 
+// Prices are in Egyptian pounds. Change them here.
+export const money = (n) => `${n.toLocaleString('en-US')} EGP`
+
 export const PACKAGES = [
   {
     id: 'spark',
     tag: '04 WEEKS',
     name: 'Spark',
-    price: 49,
-    cadence: '/ week',
+    price: 999,
+    cadence: '/ month',
     blurb: 'Start the engine. Form, food, and a plan you can actually keep.',
     features: [
       'Custom 4-day program',
@@ -19,8 +22,8 @@ export const PACKAGES = [
     id: 'forge',
     tag: 'MOST BOOKED',
     name: 'Forge',
-    price: 79,
-    cadence: '/ week',
+    price: 1999,
+    cadence: '/ month',
     featured: true,
     blurb: 'The full online coaching lane. Subscription with real coaching, not a PDF dump.',
     features: [
@@ -35,8 +38,8 @@ export const PACKAGES = [
     id: 'elite',
     tag: '12 WEEKS',
     name: 'Elite',
-    price: 119,
-    cadence: '/ week',
+    price: 3499,
+    cadence: '/ month',
     blurb: 'Transformation block. Technique first, then load, then the photos.',
     features: [
       '2 live sessions / month',
@@ -145,7 +148,7 @@ export const FAQ = [
   },
   {
     q: 'Can I pause my subscription?',
-    a: 'Subscriptions renew weekly until you pause, and there is no lock-in after the first 4 weeks.',
+    a: 'Subscriptions renew monthly until you pause, and there is no lock-in after the first month.',
   },
   {
     q: 'How accurate is the calculator?',

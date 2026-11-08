@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { Arrow } from '../components/Arrow'
 import Booking from '../components/Booking'
 import Calc from '../components/Calc'
+import Payment from '../components/Payment'
 import ImageReveal from '../components/ImageReveal'
 import Reveal, { RevealGroup, RevealItem } from '../components/Reveal'
 import SpotCard from '../components/SpotCard'
@@ -11,10 +12,18 @@ import SplitText from '../components/SplitText'
 import StatsGrid from '../components/StatsGrid'
 import TransformCard from '../components/TransformCard'
 import { CHAT_TO } from '../config'
-import { FEEDBACK, PACKAGES, PROGRAMS, TRANSFORMATIONS } from '../data'
+import { FEEDBACK, PACKAGES, PROGRAMS, TRANSFORMATIONS, money } from '../data'
 import { t } from '../text'
 
 const STEPS = ['s1', 's2', 's3', 's4']
+
+// Fixed values (not random) so the hero renders the same every time.
+const EMBERS = Array.from({ length: 16 }, (_, i) => ({
+  left: `${(i * 37 + 8) % 100}%`,
+  '--s': `${3 + ((i * 5) % 6)}px`,
+  '--t': `${7 + ((i * 3) % 7)}s`,
+  '--w': `${-((i * 1.7) % 9)}s`,
+}))
 
 export default function Home() {
   return (
@@ -23,8 +32,10 @@ export default function Home() {
       <Stats />
       <Technique />
       <Programs />
+      <Manifesto />
       <HowItWorks />
       <Packages />
+      <Payment />
       <TransformationsTeaser />
       <Feedback />
       <CtaGym />
@@ -42,6 +53,11 @@ function Hero() {
         <img src="/images/hero-duo.jpg" alt="" fetchPriority="high" />
       </div>
       <div className="hero-overlay-nobi" aria-hidden="true" />
+      <div className="embers" aria-hidden="true">
+        {EMBERS.map((e, i) => (
+          <i key={i} style={e} />
+        ))}
+      </div>
 
       <div className="hero-container-nobi">
         <div className="tag-nobi rise" style={{ '--i': 0 }}>
@@ -177,6 +193,25 @@ function Programs() {
   )
 }
 
+// Big red words stepping down the page, like a gym poster.
+function Manifesto() {
+  const words = t('manifesto.words').split('|')
+  return (
+    <section className="manifesto section">
+      <RevealGroup className="stair" stagger={0.16} aria-label={words.join(' ')}>
+        {words.map((w) => (
+          <RevealItem as="p" className="stair-w" key={w}>
+            {w}
+          </RevealItem>
+        ))}
+      </RevealGroup>
+      <Reveal delay={0.5}>
+        <p className="lede muted stair-sub">{t('manifesto.sub')}</p>
+      </Reveal>
+    </section>
+  )
+}
+
 function HowItWorks() {
   return (
     <section className="section" id="how">
@@ -221,7 +256,7 @@ function Packages() {
             <p className="tag">{p.tag}</p>
             <h3>{p.name}</h3>
             <p className="price">
-              ${p.price}
+              {money(p.price)}
               <small>{p.cadence}</small>
             </p>
             <p className="muted" style={{ margin: '0.8rem 0' }}>
