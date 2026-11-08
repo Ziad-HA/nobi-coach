@@ -1,11 +1,11 @@
 // Small settings you may want to change.
 
-// Where the "Chat Now" buttons go. Swap for a WhatsApp link (https://wa.me/<number>) to open WhatsApp.
-export const CHAT_TO = '/#contact'
+// Where the "Chat Now" buttons go (WhatsApp).
+export const CHAT_TO = 'https://wa.me/201276390301'
 
 // Footer social icons only show for links you fill in here.
 export const SOCIALS = {
-  instagram: '',
+  instagram: 'https://www.instagram.com/zi4dddd/',
   facebook: '',
   youtube: '',
 }
