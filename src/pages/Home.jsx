@@ -32,7 +32,6 @@ export default function Home() {
       <Stats />
       <Technique />
       <Programs />
-      <Manifesto />
       <HowItWorks />
       <Packages />
       <Payment />
@@ -193,27 +192,6 @@ function Programs() {
   )
 }
 
-// Big red words stepping down the page, over the refuse.png background.
-function Manifesto() {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const y = useTransform(scrollYProgress, [0, 1], ['-10%', '10%'])
-  const words = t('manifesto.words').split('|')
-  return (
-    <section className="manifesto section">
-      <RevealGroup className="stair" stagger={0.16} aria-label={words.join(' ')}>
-        {words.map((w) => (
-          <RevealItem as="p" className="stair-w" key={w}>
-            {w}
-          </RevealItem>
-        ))}
-      </RevealGroup>
-      <Reveal delay={0.5}>
-        <p className="lede muted stair-sub">{t('manifesto.sub')}</p>
-      </Reveal>
-    </section>
-  )
-}
 
 
 
