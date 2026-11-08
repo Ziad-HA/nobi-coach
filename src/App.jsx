@@ -4,7 +4,9 @@ import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import Footer from './components/Footer'
 import Intro from './components/Intro'
 import Nav from './components/Nav'
+import ScrollProgress from './components/ScrollProgress'
 import About from './pages/About'
+import Faq from './pages/Faq'
 import Home from './pages/Home'
 import Transformations from './pages/Transformations'
 
@@ -54,6 +56,7 @@ function Layout() {
   return (
     <div className={ready ? 'site ready' : 'site'}>
       <AnimatePresence>{!ready ? <Intro key="intro" onDone={finish} /> : null}</AnimatePresence>
+      <ScrollProgress />
       <Nav />
       <main id="main">
         <Outlet />
@@ -71,6 +74,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
+          <Route path="faq" element={<Faq />} />
           <Route path="transformations" element={<Transformations />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

@@ -1,25 +1,33 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Arrow } from '../components/Arrow'
-import Calc from '../components/Calc'
 import Booking from '../components/Booking'
-import Reveal from '../components/Reveal'
+import Calc from '../components/Calc'
+import ImageReveal from '../components/ImageReveal'
+import Reveal, { RevealGroup, RevealItem } from '../components/Reveal'
+import SpotCard from '../components/SpotCard'
+import SplitText from '../components/SplitText'
+import StatsGrid from '../components/StatsGrid'
 import TransformCard from '../components/TransformCard'
-import { FEEDBACK, PACKAGES, PROGRAMS, STATS, TRANSFORMATIONS } from '../data'
-import { Lines, useLang } from '../i18n'
+import { CHAT_TO } from '../config'
+import { FEEDBACK, PACKAGES, PROGRAMS, TRANSFORMATIONS } from '../data'
+import { t } from '../text'
+
+const STEPS = ['s1', 's2', 's3', 's4']
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Marquee />
       <Stats />
-      <Community />
       <Technique />
       <Programs />
+      <HowItWorks />
       <Packages />
       <TransformationsTeaser />
       <Feedback />
+      <CtaGym />
       <Calc />
       <Booking />
       <Contact />
@@ -28,10 +36,11 @@ export default function Home() {
 }
 
 function Hero() {
-  const { t } = useLang()
-
   return (
     <section className="hero-nobi" id="top">
+      <div className="hero-bg" aria-hidden="true">
+        <img src="/images/hero-duo.jpg" alt="" fetchPriority="high" />
+      </div>
       <div className="hero-overlay-nobi" aria-hidden="true" />
 
       <div className="hero-container-nobi">
@@ -40,14 +49,7 @@ function Hero() {
           {t('hero.eyebrow')}
         </div>
 
-        <h1 className="title-nobi">
-          <span className="text-white rise" style={{ '--i': 1 }}>
-            {t('hero.line1')}
-          </span>
-          <span className="text-red rise" style={{ '--i': 2 }}>
-            {t('hero.line2')}
-          </span>
-        </h1>
+        <SplitText as="h1" trigger="load" delay={0.15} className="title-nobi" text={t('hero.title')} />
 
         <p className="desc-nobi rise" style={{ '--i': 3 }}>
           {t('hero.lede')}
@@ -57,7 +59,15 @@ function Hero() {
           <Link className="btn-main-nobi" to="/#packages">
             {t('hero.join')} <Arrow />
           </Link>
+          <Link className="btn-ghost-nobi" to="/#book">
+            {t('hero.book')}
+          </Link>
         </div>
+      </div>
+
+      <div className="scroll-cue-nobi rise-late" aria-hidden="true">
+        {t('hero.scroll')}
+        <i />
       </div>
 
       <div className="badge-nobi" aria-hidden="true">
@@ -79,186 +89,146 @@ function Hero() {
   )
 }
 
-function Marquee() {
-  const { t } = useLang()
-  const words = t('marquee.words').split('|')
-  const loop = [...words, ...words, ...words, ...words]
-  return (
-    <div className="marquee" aria-hidden="true">
-      <div className="marquee-track">
-        {loop.map((w, i) => (
-          <span key={`${w}-${i}`}>
-            {i % 2 === 0 ? <b>{w}</b> : w} ·
-          </span>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 function Stats() {
-  const { t, pick } = useLang()
   return (
-    <section
-      className="section"
-      aria-label={t('stats.aria')}
-      style={{ paddingBottom: 0 }}
-    >
+    <section className="section" style={{ paddingBottom: 0 }}>
       <Reveal className="impact" y={30}>
         <div className="impact-head">
           <div>
             <p className="eyebrow">{t('impact.eyebrow')}</p>
-            <h2>
-              <Lines text={t('impact.title')} />
-            </h2>
+            <SplitText text={t('impact.title')} />
           </div>
           <p className="lede">{t('impact.copy')}</p>
         </div>
-        <div className="stats">
-          {STATS.map((s) => (
-            <div className="stat" key={pick(s.label)}>
-              <strong dir="ltr">{pick(s.value)}</strong>
-              <span>{pick(s.label)}</span>
-            </div>
-          ))}
-        </div>
+        <StatsGrid />
       </Reveal>
-    </section>
-  )
-}
-
-function Community() {
-  const { t } = useLang()
-  return (
-    <section className="section" id="story">
-      <div className="community">
-        <Reveal>
-          <p className="eyebrow">{t('community.eyebrow')}</p>
-          <h2>
-            <Lines text={t('community.title')} />
-          </h2>
-          <p className="lede" style={{ marginTop: '1.2rem' }}>
-            {t('community.copy')}
-          </p>
-          <ul className="story-list">
-            <li>
-              <b>01</b> {t('community.li1')}
-            </li>
-            <li>
-              <b>02</b> {t('community.li2')}
-            </li>
-            <li>
-              <b>03</b> {t('community.li3', { n: STATS[0].value })}
-            </li>
-          </ul>
-          <div className="btn-row">
-            <Link className="btn btn-primary" to="/#packages">
-              {t('community.packages')} <Arrow />
-            </Link>
-            <Link className="btn btn-ghost" to="/about">
-              {t('community.about')}
-            </Link>
-          </div>
-        </Reveal>
-        <Reveal className="collage" delay={0.3} y={34}>
-          <div className="shot tall" role="img" aria-label={t('community.shot1')}>
-            <span className="shot-label">{t('community.shot1')}</span>
-          </div>
-          <div className="shot a" role="img" aria-label={t('community.shot2')}>
-            <span className="shot-label">{t('community.shot2')}</span>
-          </div>
-          <div className="shot b" role="img" aria-hidden="true" />
-        </Reveal>
-      </div>
     </section>
   )
 }
 
 function Technique() {
-  const { t } = useLang()
   return (
     <section className="section" id="technique">
-      <Reveal className="section-head">
-        <div>
-          <p className="eyebrow">{t('tech.eyebrow')}</p>
-          <h2>{t('tech.title')}</h2>
+      <div className="tech-wrap">
+        <ImageReveal
+          className="tech-photo"
+          src="/images/squat.jpg"
+          alt="Athlete mid-squat, from the first squat to forever"
+        >
+          <span className="shot-label">{t('tech.photo')}</span>
+        </ImageReveal>
+
+        <div className="tech-side">
+          <div>
+            <p className="eyebrow">{t('tech.eyebrow')}</p>
+            <SplitText text={t('tech.title')} />
+            <Reveal delay={0.2}>
+              <p className="lede muted" style={{ marginTop: '1.2rem' }}>
+                {t('tech.copy')}
+              </p>
+            </Reveal>
+          </div>
+          <RevealGroup className="tech-grid" stagger={0.14}>
+            <RevealItem className="tech-card lead" as="article">
+              <p className="eyebrow">{t('tech.rule.eyebrow')}</p>
+              <h3 style={{ fontSize: '2.2rem' }}>{t('tech.rule')}</h3>
+            </RevealItem>
+            <RevealItem className="tech-card" as="article">
+              <p className="eyebrow">{t('tech.cue.eyebrow')}</p>
+              <h3>{t('tech.cue.title')}</h3>
+              <p className="muted" style={{ marginTop: '0.8rem' }}>
+                {t('tech.cue.text')}
+              </p>
+            </RevealItem>
+            <RevealItem className="tech-card" as="article">
+              <p className="eyebrow">{t('tech.film.eyebrow')}</p>
+              <h3>{t('tech.film.title')}</h3>
+              <p className="muted" style={{ marginTop: '0.8rem' }}>
+                {t('tech.film.text')}
+              </p>
+            </RevealItem>
+          </RevealGroup>
         </div>
-        <p className="lede muted">{t('tech.copy')}</p>
-      </Reveal>
-      <Reveal className="tech-grid" delay={0.2}>
-        <article className="tech-card lead">
-          <p className="eyebrow">{t('tech.rule.eyebrow')}</p>
-          <h3 style={{ fontSize: '2.2rem' }}>{t('tech.rule')}</h3>
-        </article>
-        <article className="tech-card">
-          <p className="eyebrow">{t('tech.cue.eyebrow')}</p>
-          <h3>{t('tech.cue.title')}</h3>
-          <p className="muted" style={{ marginTop: '0.8rem' }}>
-            {t('tech.cue.text')}
-          </p>
-        </article>
-        <article className="tech-card">
-          <p className="eyebrow">{t('tech.film.eyebrow')}</p>
-          <h3>{t('tech.film.title')}</h3>
-          <p className="muted" style={{ marginTop: '0.8rem' }}>
-            {t('tech.film.text')}
-          </p>
-        </article>
-      </Reveal>
+      </div>
     </section>
   )
 }
 
 function Programs() {
-  const { t, pick } = useLang()
   return (
     <section className="section" id="program">
-      <Reveal className="section-head">
+      <div className="section-head">
         <div>
           <p className="eyebrow">{t('programs.eyebrow')}</p>
-          <h2>{t('programs.title')}</h2>
+          <SplitText text={t('programs.title')} />
         </div>
-      </Reveal>
-      <Reveal className="program-grid" delay={0.15}>
+      </div>
+      <RevealGroup className="program-grid" stagger={0.13}>
         {PROGRAMS.map((p) => (
-          <article className="program-card" key={p.code}>
-            <code>
-              {p.code} / {pick(p.weeks)}
-            </code>
-            <h3>{pick(p.title)}</h3>
-            <p className="muted">{pick(p.copy)}</p>
-          </article>
+          <SpotCard key={p.code}>
+            <span className="spot-num">{p.code}</span>
+            <span className="spot-pill">{p.weeks}</span>
+            <h3>{p.title}</h3>
+            <p className="muted">{p.copy}</p>
+          </SpotCard>
         ))}
-      </Reveal>
+      </RevealGroup>
+    </section>
+  )
+}
+
+function HowItWorks() {
+  return (
+    <section className="section" id="how">
+      <div className="section-head">
+        <div>
+          <p className="eyebrow">{t('how.eyebrow')}</p>
+          <SplitText text={t('how.title')} />
+        </div>
+        <p className="lede muted">{t('how.copy')}</p>
+      </div>
+      <RevealGroup as="ol" className="steps" stagger={0.18}>
+        {STEPS.map((s, i) => (
+          <RevealItem as="li" className="step" key={s}>
+            <motion.span
+              className="step-line"
+              variants={{ hidden: { scaleX: 0 }, show: { scaleX: 1, transition: { duration: 1, delay: 0.2 } } }}
+              aria-hidden="true"
+            />
+            <span className="step-num">0{i + 1}</span>
+            <h3>{t(`about.${s}.title`)}</h3>
+            <p className="muted">{t(`about.${s}.text`)}</p>
+          </RevealItem>
+        ))}
+      </RevealGroup>
     </section>
   )
 }
 
 function Packages() {
-  const { t, pick } = useLang()
   return (
     <section className="section" id="packages">
-      <Reveal className="section-head">
+      <div className="section-head">
         <div>
           <p className="eyebrow">{t('packages.eyebrow')}</p>
-          <h2>{t('packages.title')}</h2>
+          <SplitText text={t('packages.title')} />
         </div>
         <p className="lede muted">{t('packages.copy')}</p>
-      </Reveal>
-      <Reveal className="pack-grid" delay={0.15}>
+      </div>
+      <RevealGroup className="pack-grid" stagger={0.15}>
         {PACKAGES.map((p) => (
-          <article className={p.featured ? 'pack featured' : 'pack'} key={p.id}>
-            <p className="tag">{pick(p.tag)}</p>
+          <SpotCard className={p.featured ? 'pack featured' : 'pack'} key={p.id}>
+            <p className="tag">{p.tag}</p>
             <h3>{p.name}</h3>
-            <p className="price" dir="ltr">
+            <p className="price">
               ${p.price}
-              <small>{pick(p.cadence)}</small>
+              <small>{p.cadence}</small>
             </p>
             <p className="muted" style={{ margin: '0.8rem 0' }}>
-              {pick(p.blurb)}
+              {p.blurb}
             </p>
             <ul>
-              {pick(p.features).map((f) => (
+              {p.features.map((f) => (
                 <li key={f}>{f}</li>
               ))}
             </ul>
@@ -266,31 +236,34 @@ function Packages() {
               className="btn btn-primary"
               to="/#book"
               onClick={() => {
-                sessionStorage.setItem('nobi-pack', p.id)
+                try {
+                  sessionStorage.setItem('nobi-pack', p.id)
+                } catch {
+                  /* storage unavailable */
+                }
                 window.dispatchEvent(new Event('nobi-pack'))
               }}
             >
               {t('packages.subscribe')}
             </Link>
-          </article>
+          </SpotCard>
         ))}
-      </Reveal>
+      </RevealGroup>
     </section>
   )
 }
 
 function TransformationsTeaser() {
-  const { t } = useLang()
   return (
     <section className="section" id="results">
-      <Reveal className="section-head">
+      <div className="section-head">
         <div>
           <p className="eyebrow">{t('tf.eyebrow')}</p>
-          <h2>{t('tf.title')}</h2>
+          <SplitText text={t('tf.title')} />
         </div>
         <p className="lede muted">{t('tf.sub')}</p>
-      </Reveal>
-      <Reveal className="transform-grid" delay={0.3} y={34}>
+      </div>
+      <Reveal className="transform-grid" delay={0.2} y={34}>
         {TRANSFORMATIONS.map((item, i) => (
           <TransformCard key={item.src} item={item} index={i} />
         ))}
@@ -305,31 +278,57 @@ function TransformationsTeaser() {
 }
 
 function Feedback() {
-  const { t, pick } = useLang()
   return (
     <section className="section" id="feedback">
-      <Reveal className="section-head">
+      <div className="section-head">
         <div>
           <p className="eyebrow">{t('feedback.eyebrow')}</p>
-          <h2>{t('feedback.title')}</h2>
+          <SplitText text={t('feedback.title')} />
         </div>
-      </Reveal>
-      <Reveal className="feed-grid" delay={0.15}>
+      </div>
+      <RevealGroup className="feed-grid" stagger={0.15}>
         {FEEDBACK.map((f) => (
-          <article className="feed-card" key={pick(f.name)}>
-            <p>“{pick(f.text)}”</p>
+          <SpotCard className="feed-card" key={f.name}>
+            <span className="quote-mark" aria-hidden="true">
+              “
+            </span>
+            <p>{f.text}</p>
             <p className="eyebrow" style={{ margin: 0 }}>
-              {pick(f.name)} — {pick(f.role)}
+              {f.name} — {f.role}
             </p>
-          </article>
+          </SpotCard>
         ))}
+      </RevealGroup>
+    </section>
+  )
+}
+
+function CtaGym() {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
+  const y = useTransform(scrollYProgress, [0, 1], ['-8%', '8%'])
+
+  return (
+    <section className="cta-gym" ref={ref}>
+      <motion.img className="cta-gym-bg" src="/images/gym.jpg" alt="" loading="lazy" style={{ y }} />
+      <div className="cta-gym-shade" aria-hidden="true" />
+      <SplitText text={t('cta.title')} />
+      <Reveal delay={0.2}>
+        <p className="lede">{t('cta.text')}</p>
+        <div className="actions-nobi">
+          <Link className="btn-main-nobi" to="/#packages">
+            {t('hero.join')} <Arrow />
+          </Link>
+          <Link className="btn-ghost-nobi" to={CHAT_TO}>
+            {t('cta.btn')}
+          </Link>
+        </div>
       </Reveal>
     </section>
   )
 }
 
 function Contact() {
-  const { t } = useLang()
   const [sent, setSent] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', message: '' })
 
@@ -363,18 +362,13 @@ function Contact() {
         >
           <label>
             {t('contact.name')}
-            <input
-              required
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-            />
+            <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
           </label>
           <label>
             {t('contact.email')}
             <input
               required
               type="email"
-              dir="ltr"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />

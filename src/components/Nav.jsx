@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useLang } from '../i18n'
-
-// Where "Chat Now" goes. Swap for a WhatsApp link (https://wa.me/<number>) if you want that.
-const CHAT_TO = '/#contact'
+import { CHAT_TO } from '../config'
+import { t } from '../text'
 
 // [route, copy key]. Hash links work from any page because ScrollManager (App.jsx) handles them.
 const LINKS = [
@@ -11,8 +9,7 @@ const LINKS = [
   ['/#results', 'nav.results'],
   ['/#feedback', 'nav.feedback'],
   ['/#packages', 'nav.packages'],
-  ['/#shop', 'nav.shop'],
-  ['/#faq', 'nav.faq'],
+  ['/faq', 'nav.faq'],
 ]
 
 function ChatIcon() {
@@ -24,9 +21,16 @@ function ChatIcon() {
 }
 
 export default function Nav() {
-  const { t, toggle } = useLang()
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const close = () => setOpen(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     if (!open) return undefined
@@ -37,13 +41,15 @@ export default function Nav() {
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
 
+  const cls = ['nav-nobi', open ? 'open' : '', scrolled ? 'scrolled' : ''].filter(Boolean).join(' ')
+
   return (
-    <header className={open ? 'nav-nobi open' : 'nav-nobi'}>
+    <header className={cls}>
       <a className="skip" href="#main">
         {t('nav.skip')}
       </a>
       <div className="nav-inner-nobi">
-        <Link className="logo-nobi" to="/" dir="ltr" onClick={close}>
+        <Link className="logo-nobi" to="/" onClick={close}>
           <span className="logo-red">NOBI</span>
           <span>COACH</span>
         </Link>
@@ -61,14 +67,6 @@ export default function Nav() {
         </nav>
 
         <div className="nav-cta-nobi">
-          <button
-            className="lang-nobi"
-            type="button"
-            onClick={toggle}
-            aria-label={t('nav.langLabel')}
-          >
-            {t('nav.lang')}
-          </button>
           <Link className="btn-chat-nobi chat-in-bar" to={CHAT_TO}>
             <ChatIcon />
             {t('nav.chat')}

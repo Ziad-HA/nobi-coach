@@ -1,11 +1,10 @@
-import { useLang } from '../i18n'
+import { t } from '../text'
 
 // One before/after photo. Extra client details only show when they are filled in
 // in src/data.js, so nothing is ever invented.
 export default function TransformCard({ item, index, detailed = false, onOpen }) {
-  const { t, pick } = useLang()
   const n = String(index + 1).padStart(2, '0')
-  const title = item.name ? pick(item.name) : `${t('tf.n')} ${n}`
+  const title = item.name ? item.name : `${t('tf.n')} ${n}`
 
   const details = []
   if (item.age) details.push([t('tfp.d.age'), String(item.age)])
@@ -16,13 +15,13 @@ export default function TransformCard({ item, index, detailed = false, onOpen })
       `${item.startKg} → ${item.endKg} ${t('tfp.kg')}`,
     ])
   }
-  if (item.program) details.push([t('tfp.d.program'), pick(item.program)])
+  if (item.program) details.push([t('tfp.d.program'), item.program])
 
   const image = (
     <>
       <img src={item.src} alt={`${t('tf.alt')} ${index + 1}`} loading="lazy" />
       {detailed ? (
-        <span className="ba-flags" dir="ltr" aria-hidden="true">
+        <span className="ba-flags" aria-hidden="true">
           <span>{t('tf.before')}</span>
           <span>{t('tf.after')}</span>
         </span>
