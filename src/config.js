@@ -5,7 +5,7 @@ export const CHAT_TO = '/#contact'
 
 // Footer social icons only show for links you fill in here.
 export const SOCIALS = {
-  instagram: '',
+  instagram: 'https://www.instagram.com/zi4dddd/',
   facebook: '',
   youtube: '',
 }
