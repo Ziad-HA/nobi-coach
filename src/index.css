@@ -2519,3 +2519,32 @@ h2 {
     display: none !important;
   }
 }
+
+/* ---------- Intro: loading the bar ---------- */
+
+.intro-bell {
+  width: min(320px, 70vw);
+  height: auto;
+  margin-bottom: 1.4rem;
+  overflow: visible;
+}
+
+.bell-bar {
+  fill: #cfcac8;
+}
+
+.bell-plate.red {
+  fill: var(--accent);
+  filter: drop-shadow(0 0 6px rgba(225, 29, 29, 0.6));
+}
+
+.bell-plate.white {
+  fill: #f6f4f2;
+}
+
+.intro-count {
+  margin-top: 1.2rem;
+  font-family: var(--hero-font);
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+}
