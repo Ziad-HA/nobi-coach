@@ -69,9 +69,7 @@ function Hero() {
           <Link className="btn-main-nobi" to="/#packages">
             {t('hero.join')} <Arrow />
           </Link>
-          <Link className="btn-ghost-nobi" to="/#payment">
-            {t('hero.book')}
-          </Link>
+          
         </div>
       </div>
 
