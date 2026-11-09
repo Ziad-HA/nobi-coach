@@ -3058,3 +3058,10 @@ h2 {
 @media (prefers-reduced-motion: reduce) {
   .therapy-word { animation: none; }
 }
+
+.tech-card.card-cue {
+  background: linear-gradient(180deg, rgba(9, 9, 9, 0.45), rgba(9, 9, 9, 0.9)), url('/images/cue.jpg') center / cover no-repeat !important;
+}
+.tech-card.card-film {
+  background: linear-gradient(180deg, rgba(9, 9, 9, 0.45), rgba(9, 9, 9, 0.9)), url('/images/film.jpg') center / cover no-repeat !important;
+}
