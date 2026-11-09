@@ -3177,3 +3177,32 @@ h2 {
   color: #fff;
   border-color: #e11d1d;
 }
+
+/* Compact horizontal swipe / 2-col cards for Programs on mobile */
+@media (max-width: 768px) {
+  .program-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.8rem !important;
+  }
+  .program-grid .spot {
+    padding: 1.1rem 1rem !important;
+  }
+  .program-grid .spot-num {
+    font-size: 2.2rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+  .program-grid .spot-pill {
+    margin-bottom: 0.5rem !important;
+    padding: 0.15rem 0.5rem !important;
+    font-size: 0.7rem !important;
+  }
+  .program-grid h3 {
+    font-size: 1.15rem !important;
+    margin: 0.3rem 0 0.4rem !important;
+    line-height: 1.15 !important;
+  }
+  .program-grid p.muted {
+    font-size: 0.8rem !important;
+    line-height: 1.35 !important;
+  }
+}
