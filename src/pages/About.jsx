@@ -31,7 +31,7 @@ export default function About() {
               <Link className="btn btn-primary" to="/#packages">
                 {t('about.cta.packages')} <Arrow />
               </Link>
-              <Link className="btn btn-ghost" to="/#book">
+              <Link className="btn btn-ghost" to="/#payment">
                 {t('about.cta.book')}
               </Link>
             </div>
@@ -116,7 +116,7 @@ export default function About() {
             <Link className="btn btn-primary" to="/#packages">
               {t('about.cta.packages')} <Arrow />
             </Link>
-            <Link className="btn btn-ghost" to="/#book">
+            <Link className="btn btn-ghost" to="/#payment">
               {t('about.cta.book')}
             </Link>
           </div>

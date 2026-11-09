@@ -222,7 +222,7 @@ export default function Calc() {
               <button className="btn btn-primary" type="submit" disabled={busy}>
                 {busy ? t('calc.busy') : t('calc.pdf')}
               </button>
-              <Link className="btn btn-ghost" to="/#book">
+              <Link className="btn btn-ghost" to="/#payment">
                 {t('calc.consult')}
               </Link>
             </div>

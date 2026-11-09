@@ -56,7 +56,7 @@ export default function Footer() {
           <Link to="/about">{t('about.eyebrow')}</Link>
           <Link to="/transformations">{t('tfp.eyebrow')}</Link>
           <Link to="/#calc">{t('calc.eyebrow').split(' /')[0]}</Link>
-          <Link to="/#book">{t('book.eyebrow').split(' /')[0]}</Link>
+          <Link to="/#payment">{t('pay.eyebrow')}</Link>
         </nav>
 
         <div>

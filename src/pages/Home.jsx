@@ -2,7 +2,6 @@ import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Arrow } from '../components/Arrow'
-import Booking from '../components/Booking'
 import Payment from '../components/Payment'
 import ImageReveal from '../components/ImageReveal'
 import Reveal, { RevealGroup, RevealItem } from '../components/Reveal'
@@ -37,7 +36,6 @@ export default function Home() {
       <TransformationsTeaser />
       <Feedback />
       <CtaGym />
-      <Booking />
       <Contact />
     </>
   )
@@ -72,7 +70,7 @@ function Hero() {
           <Link className="btn-main-nobi" to="/#packages">
             {t('hero.join')} <Arrow />
           </Link>
-          <Link className="btn-ghost-nobi" to="/#book">
+          <Link className="btn-ghost-nobi" to="/#payment">
             {t('hero.book')}
           </Link>
         </div>
@@ -250,7 +248,7 @@ function Packages() {
             </ul>
             <Link
               className="btn btn-primary"
-              to="/#book"
+              to="/#payment"
               onClick={() => {
                 try {
                   sessionStorage.setItem('nobi-pack', p.id)
