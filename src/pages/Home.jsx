@@ -125,8 +125,8 @@ function Technique() {
       <div className="tech-wrap">
         <ImageReveal
           className="tech-photo"
-          src="/images/squat.jpg"
-          alt="Athlete mid-squat, from the first squat to forever"
+          src="/images/technique.jpg"
+          alt="Athlete mastering the bar path"
         >
           <span className="shot-label">{t('tech.photo')}</span>
         </ImageReveal>
