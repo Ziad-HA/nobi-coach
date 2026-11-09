@@ -3139,3 +3139,41 @@ h2 {
     font-size: 0.75rem !important;
   }
 }
+
+/* Copy button styles */
+.pay-code-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.pay-code-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.6rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: #ccc;
+  font-size: 0.75rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.copy-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.copy-btn.copied {
+  background: #e11d1d;
+  color: #fff;
+  border-color: #e11d1d;
+}

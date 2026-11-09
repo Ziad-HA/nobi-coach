@@ -1,3 +1,4 @@
+﻿import { useState } from 'react'
 import { CHAT_TO, PAYMENT } from '../config'
 import { t } from '../text'
 import { RevealGroup, RevealItem } from './Reveal'
@@ -9,6 +10,48 @@ const METHODS = [
   { id: 'telda', title: 'Telda', value: PAYMENT.telda, desc: 'pay.telda.desc' },
   { id: 'fawry', title: 'Fawry', value: '', soon: true, desc: 'pay.fawry.desc' },
 ]
+
+function CopyButton({ text }) {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = async (e) => {
+    e.stopPropagation()
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      /* ignore */
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      className={`copy-btn ${copied ? 'copied' : ''}`}
+      title="Copy to clipboard"
+      aria-label="Copy to clipboard"
+    >
+      {copied ? (
+        <>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span>Copied!</span>
+        </>
+      ) : (
+        <>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          </svg>
+          <span>Copy</span>
+        </>
+      )}
+    </button>
+  )
+}
 
 export default function Payment() {
   return (
@@ -27,9 +70,12 @@ export default function Payment() {
         {METHODS.map((m) => (
           <RevealItem as="article" className="pay-card" key={m.id}>
             <h3>{m.title}</h3>
-            <p className={m.soon ? 'pay-code soon' : 'pay-code'}>
-              {m.soon ? t('pay.soon') : m.value || t('pay.ask')}
-            </p>
+            <div className="pay-code-row">
+              <p className={m.soon ? 'pay-code soon' : 'pay-code'}>
+                {m.soon ? t('pay.soon') : m.value || t('pay.ask')}
+              </p>
+              {!m.soon && m.value ? <CopyButton text={m.value} /> : null}
+            </div>
             <p className="muted">{t(m.desc)}</p>
           </RevealItem>
         ))}
@@ -47,7 +93,11 @@ export default function Payment() {
           <p className="pay-via">{t('pay.out.via')}</p>
           {PAYMENT.tapPhone ? (
             <p>
-              {t('pay.out.phone')} <span className="pay-code">{PAYMENT.tapPhone}</span>
+              {t('pay.out.phone')}{' '}
+              <span className="pay-code-inline">
+                <span className="pay-code">{PAYMENT.tapPhone}</span>
+                <CopyButton text={PAYMENT.tapPhone} />
+              </span>
             </p>
           ) : null}
           {PAYMENT.fullName ? (
