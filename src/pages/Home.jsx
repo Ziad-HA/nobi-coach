@@ -1,4 +1,4 @@
-﻿import { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Arrow } from '../components/Arrow'
@@ -143,15 +143,13 @@ function Technique() {
               <p className="eyebrow">{t('tech.rule.eyebrow')}</p>
               <h3 style={{ fontSize: '2.2rem' }}>{t('tech.rule')}</h3>
             </RevealItem>
-            <RevealItem className="tech-card" as="article">
-              <p className="eyebrow">{t('tech.cue.eyebrow')}</p>
+            <RevealItem className="tech-card tech-card-bg" style={{ backgroundImage: "linear-gradient(180deg, rgba(9, 9, 9, 0.45), rgba(9, 9, 9, 0.9)), url('/images/cue.jpg') center/cover no-repeat" }} as="article">`r`n              <p className="eyebrow">{t('tech.cue.eyebrow')}</p>
               <h3>{t('tech.cue.title')}</h3>
               <p className="muted" style={{ marginTop: '0.8rem' }}>
                 {t('tech.cue.text')}
               </p>
             </RevealItem>
-            <RevealItem className="tech-card" as="article">
-              <p className="eyebrow">{t('tech.film.eyebrow')}</p>
+            <RevealItem className="tech-card tech-card-bg" style={{ backgroundImage: "linear-gradient(180deg, rgba(9, 9, 9, 0.45), rgba(9, 9, 9, 0.9)), url('/images/film.jpg') center/cover no-repeat" }} as="article">`r`n              <p className="eyebrow">{t('tech.film.eyebrow')}</p>
               <h3>{t('tech.film.title')}</h3>
               <p className="muted" style={{ marginTop: '0.8rem' }}>
                 {t('tech.film.text')}
