@@ -3065,3 +3065,29 @@ h2 {
 .tech-card.card-film {
   background: linear-gradient(180deg, rgba(9, 9, 9, 0.45), rgba(9, 9, 9, 0.9)), url('/images/film.jpg') center / cover no-repeat !important;
 }
+
+/* Compact mobile view for How It Works steps */
+@media (max-width: 768px) {
+  .steps {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1.2rem 1rem !important;
+  }
+  .step {
+    padding-top: 1rem !important;
+  }
+  .step-num {
+    font-size: 2.6rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .step h3 {
+    font-size: 1.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .step p {
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+  }
+  .section {
+    padding-block: clamp(2.5rem, 6vw, 4rem) !important;
+  }
+}
